@@ -11,6 +11,7 @@ to generate population reports about countries,
 
 - Thomas Crook
 - Thomas Mccann
+- Euan Gorrie
 - Jake Ward
 - Desmond Okafor
 - Areej Islam
