@@ -32,5 +32,5 @@ MySQL integration and population reports are not implemented yet.
 - Code of Conduct: Link to be added
 - First release: Link to be added
 - 
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Thomas-C/Coursework/main)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Thomas-C/Coursework/master)
 ![workflow](https://github.com/Thomas-C/Coursework/actions/workflows/main.yml/badge.svg)
