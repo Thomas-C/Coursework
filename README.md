@@ -27,7 +27,7 @@ MySQL integration and population reports are not implemented yet.
 
 ## Project Documentation
 
-- Product Backlog: Link to be added
+- [Product_Backlog.md](Product_Backlog.md)
 - [Code_Of_Conduct.md](Code_Of_Conduct.md)
 - First release: Link to be added
 
