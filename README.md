@@ -29,7 +29,7 @@ MySQL integration and population reports are not implemented yet.
 
 - [Product_Backlog.md](Product_Backlog.md)
 - [Code_Of_Conduct.md](Code_Of_Conduct.md)
-- First release: Link to be added
+- [First release](https://github.com/Thomas-C/Coursework/releases/tag/v0.1.0)
 
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Thomas-C/Coursework/master)
 ![workflow](https://github.com/Thomas-C/Coursework/actions/workflows/main.yml/badge.svg)
