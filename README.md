@@ -28,7 +28,7 @@ MySQL integration and population reports are not implemented yet.
 ## Project Documentation
 
 - Product Backlog: Link to be added
-- Code of Conduct: Link to be added
+- [Code_Of_Conduct.md](Code_Of_Conduct.md)
 - First release: Link to be added
 
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Thomas-C/Coursework/master)
