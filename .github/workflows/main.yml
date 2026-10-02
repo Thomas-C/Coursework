@@ -17,6 +17,11 @@ jobs:
         run: mvn --batch-mode clean package
       - name: Build Docker Image
         run: docker build -t coursework-app .
+      - name: Start MongoDB
+        run: docker run -d --name mongodb -p 27000:27017 mongo:4.4
+      - name: Wait for MongoDB
+        run: sleep 15
       - name: Run application
-        run: docker run --rm coursework-app
+        run: docker run --network host --rm coursework-app
+    
 
