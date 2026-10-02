@@ -1,4 +1,4 @@
 FROM amazoncorretto:17
-COPY ./target/classes/com /tmp/com
+COPY ./target/coursework-jar-with-dependencies.jar  /tmp/coursework.jar
 WORKDIR /tmp
-ENTRYPOINT ["java", "com.napier.sem.Main"]
+ENTRYPOINT ["java", "-jar", "coursework.jar"]
