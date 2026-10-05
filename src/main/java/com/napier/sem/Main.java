@@ -12,7 +12,7 @@ public class Main
    public static void main(String[] args)
    {
        // Connect to MongoDB on local system - we're using port 27000
-       MongoClient mongoClient = new MongoClient("host.docker.internal", 27000);
+       MongoClient mongoClient = new MongoClient("localhost", 27000);
        // Get a database - will create when we use it
        MongoDatabase database = mongoClient.getDatabase("mydb");
        // Get a collection from the database
