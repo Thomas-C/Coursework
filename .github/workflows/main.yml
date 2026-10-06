@@ -8,15 +8,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Set up JDK 17
         uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Package with Maven
         run: mvn --batch-mode clean package
-      - name: Build Docker Image
-        run: docker build -t coursework-app .
-      - name: Run application
-        run: docker run --rm coursework-app
 
+      - name: Run application and database
+        run: docker compose up --build --abort-on-container-exit --exit-code-from app
+
+      - name: Clean up containers
+        if: always()
+        run: docker compose down

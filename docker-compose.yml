@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+
+  db:
+    build: ./db
+    ports:
+      - "127.0.0.1:33060:3306"
+    volumes:
+      - world-data:/var/lib/mysql
+
+volumes:
+  world-data:
