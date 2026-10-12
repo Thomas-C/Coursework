@@ -4,29 +4,91 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        String url = "jdbc:mysql://db:3306/world"
-                + "?allowPublicKeyRetrieval=true&useSSL=false";
+public class Main
+{
+    /**
+     * Connection to MySQL database.
+     */
+    private Connection con = null;
 
-        // MySQL may still be starting when the application starts.
-        for (int attempt = 1; attempt <= 30; attempt++) {
-            System.out.println("Connecting to database: attempt " + attempt);
+    public static void main(String[] args)
+    {
+        // Create new Application
+        Main a = new Main();
 
-            try (Connection connection =
-                         DriverManager.getConnection(
-                                 url, "coursework", "coursework")) {
+        // Connect to database
+        a.connect();
 
-                System.out.println("Successfully connected to world database!");
-                return;
+        // Call your report methods here.
 
-            } catch (SQLException e) {
-                System.out.println("Connection failed: " + e.getMessage());
-            }
+        // Disconnect from database
+        a.disconnect();
+    }
 
-            Thread.sleep(5000);
+    /**
+     * Connect to the MySQL database.
+     */
+    public void connect()
+    {
+        try
+        {
+            // Load Database driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }
+        catch (ClassNotFoundException e)
+        {
+            System.out.println("Could not load SQL driver");
+            System.exit(-1);
         }
 
-        throw new IllegalStateException("Could not connect to the world database.");
+        int retries = 10;
+        for (int i = 0; i < retries; ++i)
+        {
+            System.out.println("Connecting to database...");
+            try
+            {
+                // Wait a bit for db to start
+                Thread.sleep(30000);
+
+                // Connect to database
+                con = DriverManager.getConnection(
+                        "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false",
+                        "coursework",
+                        "coursework");
+
+                System.out.println("Successfully connected");
+                break;
+            }
+            catch (SQLException sqle)
+            {
+                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println(sqle.getMessage());
+            }
+            catch (InterruptedException ie)
+            {
+                System.out.println("Thread interrupted? Should not happen.");
+            }
+        }
     }
+
+    /**
+     * Disconnect from the MySQL database.
+     */
+    public void disconnect()
+    {
+        if (con != null)
+        {
+            try
+            {
+                // Close connection
+                con.close();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error closing connection to database");
+            }
+        }
+    }
+
+    // Add your report methods here, inside the Main class.
 }
