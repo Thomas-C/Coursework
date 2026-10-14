@@ -1,8 +1,7 @@
 package com.napier.sem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Main
 {
@@ -19,7 +18,11 @@ public class Main
         // Connect to database
         a.connect();
 
-        // Call your report methods here.
+        // Demonstration report of all capital cities - delete later
+        /*
+        ArrayList<CapitalCity> capitals = a.capitalsReport();
+        a.displayCapitals(capitals);
+        */
 
         // Disconnect from database
         a.disconnect();
@@ -90,5 +93,52 @@ public class Main
         }
     }
 
-    // Add your report methods here, inside the Main class.
+    /**
+     * Returns ArrayList of CapitalCity Objects
+     */
+    public ArrayList<CapitalCity> capitalsReport()
+    {
+        ArrayList<CapitalCity> ccArr = new ArrayList<CapitalCity>();
+
+        try
+        {
+            // Create and execute SQL statement
+            Statement st = con.createStatement();
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
+                                "FROM city JOIN country ON (city.CountryCode = country.Code) " +
+                                "WHERE city.ID IN (SELECT country.Capital FROM country)";
+            ResultSet rs = st.executeQuery(stInput);
+
+            // populate Arraylist with results of SQL statement
+            while (rs.next())
+            {
+                CapitalCity cc = new CapitalCity();
+                cc.id = rs.getInt("city.ID");
+                cc.name = rs.getString("city.Name");
+                cc.country = rs.getString("country.name");
+                cc.population = rs.getInt("city.Population");
+                ccArr.add(cc);
+            }
+
+            return ccArr;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+            System.out.println("Failed to get Capital City details");
+            return null;
+        }
+    }
+
+    /**
+     * Prints contents of Capital City ArrayList
+     */
+    public void displayCapitals(ArrayList<CapitalCity> ccArr)
+    {
+        System.out.println("Printing Capital City Report:");
+        for (CapitalCity capitalCity : ccArr)
+        {
+            System.out.println(capitalCity.ToString());
+        }
+    }
 }

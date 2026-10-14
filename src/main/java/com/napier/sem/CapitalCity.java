@@ -4,16 +4,14 @@ package com.napier.sem;
 public class CapitalCity
 {
 
-    // the city's unique ID in the database
     public int id;
-
-    // the city's name
     public String name;
-
-    // the country city is capital of
     public String country;
-
-    // the population of the country
     public int population;
+
+    public String ToString()
+    {
+        return ("Name: " + this.name + "  |  Country: " + this.country + "  |  Population: " + Integer.toString(this.population));
+    }
 
 }
