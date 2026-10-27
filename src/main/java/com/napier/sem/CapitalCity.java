@@ -96,10 +96,19 @@ public class CapitalCity
      */
     public static void displayCapitals(ArrayList<CapitalCity> ccArr)
     {
-        System.out.println("Printing Capital City Report:");
+        if (ccArr == null)
+        {
+            System.out.println("No capital cities in report");
+            return;
+        }
+        System.out.println("Printing capital city report:");
         // Increments for each object in ArrayList
         for (CapitalCity cc : ccArr)
         {
+            if (cc == null)
+            {
+                continue;
+            }
             System.out.println(cc.ToString());
         }
     }
