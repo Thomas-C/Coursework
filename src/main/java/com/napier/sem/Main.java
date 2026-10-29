@@ -2,6 +2,13 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+
+/** To run the application, write these in the terminal:
+docker compose up -d --build db (builds the database)
+ docker compose run --build --rm app (Builds the application with the JAR and runs the java application interactively)
+ */
 
 public class Main
 {
@@ -10,29 +17,80 @@ public class Main
      */
     private Connection con = null;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
+        int n;
+
+        if (args.length > 0) {
+            // Use the number supplied when starting the application
+            n = Integer.parseInt(args[0]);
+
+            if (n <= 0) {
+                throw new IllegalArgumentException("Number of countries must be greater than zero");
+            }
+        } else {
+            // Ask the user for a number
+            Scanner input = new Scanner(System.in);
+            while (true) {
+                System.out.print("How many countries do you want to display? ");
+
+                if (!input.hasNextLine()) {
+                    throw new IllegalStateException("No input is available. Run it interactively or supply N as an argument");
+                }
+
+                try {
+                    n = Integer.parseInt(input.nextLine().trim());
+                    if (n > 0) {
+                        break;
+
+                    }
+                } catch (NumberFormatException e) {
+                    // Display the message below and ask again
+                }
+                System.out.println("Please enter a whole number greater than zero.");
+            }
+        }
         // Create new Application
         Main a = new Main();
+        try {
+            // Connect to database
+            a.connect();
 
-        // Connect to database
-        a.connect();
+            if (a.con == null) {
+                throw new IllegalStateException("Database connection failed");
+            }
 
-        // Retrieve and display all countries by population
-        ArrayList<CountryReport> countries =
-                CountryReport.getAllCountries(a.con);
+            // Retrieve and display all countries by population
+            ArrayList<CountryReport> countries =
+                    CountryReport.getAllCountries(a.con);
 
-        CountryReport.displayCountries(countries);
 
-        // Demonstration report of all capital cities - delete later
+            if (countries == null) {
+                throw new IllegalStateException("Could not retrieve countries.");
+            }
+
+            CountryReport.displayCountries(countries, "All countries: Largest population to smallest");
+
+
+            // Displays the number of countries requested by the user or startup argument.
+            ArrayList<CountryReport> topCountries =
+                    CountryReport.getTopCountries(a.con, n);
+
+            if (topCountries == null) {
+                throw new IllegalStateException("Could not retrieve top countries");
+            }
+
+            CountryReport.displayCountries(topCountries, "Top " + n + " countries worldwide");
+
+            // Demonstration report of all capital cities - delete later
         /*
         ArrayList<CapitalCity> capitals = a.capitalsReport();
         CapitalCity.displayCapitals(capitals);
         */
-
-
-        // Disconnect from database
-        a.disconnect();
+        } finally {
+            // Disconnect from database
+            a.disconnect();
+        }
     }
 
     /**

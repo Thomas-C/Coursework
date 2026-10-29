@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.PreparedStatement;
 
 /**
  *  Stores countries details and provides the country report methods
@@ -72,10 +73,68 @@ public class CountryReport
             return null;
         }
     }
+
+
+    /**
+     * Gets the top N countries worldwide by population
+     *
+     * @param con An open database connection
+     * @param n The number of countries to receive
+     * @return A list of countries, or null if the query fails
+     */
+    public static ArrayList<CountryReport> getTopCountries(Connection con, int n)
+    {
+        if (n <= 0)
+        {
+            throw new IllegalArgumentException("The number of countries must be greater than zero");
+        }
+
+        String strSelect =
+                "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, " +
+                "city.Name AS CapitalName " +
+                "FROM country LEFT JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC, country.Name ASC " +
+                "LIMIT ? ";
+
+        try (PreparedStatement stmt = con.prepareStatement(strSelect))
+        {
+            // Supply the number for the first ? in the query
+
+            stmt.setInt(1,n);
+
+            try (ResultSet rset = stmt.executeQuery())
+            {
+                ArrayList<CountryReport> countries = new ArrayList<>();
+
+                while (rset.next())
+                {
+                    CountryReport country = new CountryReport();
+
+                    country.code = rset.getString("Code");
+                    country.name = rset.getString("Name");
+                    country.continent = rset.getString("Continent");
+                    country.region = rset.getString("Region");
+                    country.population = rset.getLong("Population");
+                    country.capital = rset.getString("CapitalName");
+
+                    countries.add(country);
+                }
+
+                return countries;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top countries");
+            return null;
+        }
+    }
+
     /**
      *  Prints the country report
      */
-    public static void displayCountries(ArrayList<CountryReport> countries)
+    public static void displayCountries(ArrayList<CountryReport> countries, String heading)
     {
         if (countries == null)
         {
@@ -83,7 +142,7 @@ public class CountryReport
             return;
 
         }
-        System.out.println("Country Report: Largest population to smallest");
+        System.out.println(heading);
 
         for (CountryReport country : countries)
         {

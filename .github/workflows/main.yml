@@ -17,5 +17,10 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn package
-      - name: Run docker compose
-        run: docker compose up --abort-on-container-exit
+      - name: Start database
+        run: docker compose up -d --build db
+      - name: Run reports with N supplied automatically
+        run: docker compose run --build --rm -T app 5
+      - name: Stop containers
+        if: always()
+        run: docker compose down
