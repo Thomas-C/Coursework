@@ -18,6 +18,12 @@ public class Main
         // Connect to database
         a.connect();
 
+        // Retrieve and display all countries by population
+        ArrayList<CountryReport> countries =
+                CountryReport.getAllCountries(a.con);
+
+        CountryReport.displayCountries(countries);
+
         // Demonstration report of all capital cities - delete later
         /*
         ArrayList<CapitalCity> capitals = a.capitalsReport();
