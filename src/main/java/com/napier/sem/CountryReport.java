@@ -87,6 +87,12 @@ public class CountryReport
 
         for (CountryReport country : countries)
         {
+            // Skip missing entries in the list
+            if (country == null)
+            {
+                continue;
+            }
+
             System.out.println(
                     "Code: " + country.code
                     + " | Name: " + country.name
