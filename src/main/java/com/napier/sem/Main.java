@@ -15,12 +15,21 @@ public class Main
         // Create new Application
         Main a = new Main();
 
-        // Connect to database
-        a.connect();
-
+        if (args.length == 0)
+        {
+            // Connect to database
+            a.connect("localhost:33060", 30000);
+        }
+        else if (args.length == 2)
+        {
+            a.connect(args[0], Integer.parseInt(args[1]));
+        }
+        else
+        {
+            throw new IllegalArgumentException("Supply both the database location and connection delay.");
+        }
         // Retrieve and display all countries by population
-        ArrayList<CountryReport> countries =
-                CountryReport.getAllCountries(a.con);
+        ArrayList<CountryReport> countries = a.countriesReport();
 
         CountryReport.displayCountries(countries);
 
@@ -36,9 +45,17 @@ public class Main
     }
 
     /**
+     * Returns all countries ordered by population
+     */
+
+    public ArrayList<CountryReport> countriesReport()
+    {
+        return CountryReport.getAllCountries(con);
+    }
+    /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public void connect(String location, int delay)
     {
         try
         {
@@ -58,11 +75,12 @@ public class Main
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(delay);
 
                 // Connect to database
                 con = DriverManager.getConnection(
-                        "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false",
+                        "jdbc:mysql://" + location +
+                                "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "coursework",
                         "coursework");
 
@@ -80,6 +98,9 @@ public class Main
             }
         }
     }
+
+
+
 
     /**
      * Disconnect from the MySQL database.
