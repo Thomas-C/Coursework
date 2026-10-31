@@ -36,11 +36,9 @@ public class Main
 
 
         // Demonstration report of all capital cities - delete later
-        /*
-        ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
-        CapitalCity.displayCapitals(capitals);
-        */
 
+        ArrayList<CapitalCity> capitals = a.capitalsReport();
+        CapitalCity.displayCapitals(capitals);
 
 
         // Disconnect from database

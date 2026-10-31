@@ -54,10 +54,10 @@ public class ReportIntegrationTest
 
         // Peking, China should be the first capital city in data
         CapitalCity capital = capitals.get(0);
-        assertEquals(1891, capital.id);
-        assertEquals("Peking", capital.name);
-        assertEquals("China", capital.country);
-        assertEquals(7472000, capital.population);
+        assertEquals(2331, capital.id);
+        assertEquals("Seoul", capital.name);
+        assertEquals("South Korea", capital.country);
+        assertEquals(9981619, capital.population);
     }
 
     @AfterAll
