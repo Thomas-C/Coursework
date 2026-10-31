@@ -35,7 +35,7 @@ jobs:
         run: docker compose up -d --build db
 
       - name: Run integration tests
-        run: mvn -Dtest=CountryReportIntegrationTest test
+        run: mvn -Dtest=ReportIntegrationTest test
 
       - name: Stop database
         if: always()

@@ -1,5 +1,6 @@
 package com.napier.devops;
 
+import com.napier.sem.CapitalCity;
 import com.napier.sem.CountryReport;
 import com.napier.sem.Main;
 import org.junit.jupiter.api.AfterAll;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CountryReportIntegrationTest
+public class ReportIntegrationTest
 {
     static Main app;
 
@@ -39,6 +40,24 @@ public class CountryReportIntegrationTest
         assertEquals("Eastern Asia", country.region);
         assertEquals(1277558000L, country.population);
         assertEquals("Peking", country.capital);
+    }
+
+    @Test
+    void testGetCapitalCities()
+    {
+        // Get CapitalCity data
+        ArrayList<CapitalCity> capitals = app.capitalsReport();
+
+        // Check that the query returned data
+        assertNotNull(capitals);
+        assertFalse(capitals.isEmpty());
+
+        // Peking, China should be the first capital city in data
+        CapitalCity capital = capitals.get(0);
+        assertEquals(1891, capital.id);
+        assertEquals("Peking", capital.name);
+        assertEquals("China", capital.country);
+        assertEquals(7472000, capital.population);
     }
 
     @AfterAll

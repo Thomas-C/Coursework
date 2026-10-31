@@ -41,7 +41,8 @@ public class CapitalCity
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
                     "FROM city JOIN country ON (city.CountryCode = country.Code) " +
-                    "WHERE city.ID IN (SELECT country.Capital FROM country)";
+                    "WHERE city.ID IN (SELECT country.Capital FROM country)" +
+                    "ORDER BY country.Population DESC, country.Name ASC";
 
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);

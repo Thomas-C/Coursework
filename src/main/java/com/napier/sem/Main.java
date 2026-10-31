@@ -29,15 +29,17 @@ public class Main
             throw new IllegalArgumentException("Supply both the database location and connection delay.");
         }
         // Retrieve and display all countries by population
+        /*
         ArrayList<CountryReport> countries = a.countriesReport();
-
         CountryReport.displayCountries(countries);
+        */
+
 
         // Demonstration report of all capital cities - delete later
-        /*
+
         ArrayList<CapitalCity> capitals = a.capitalsReport();
         CapitalCity.displayCapitals(capitals);
-        */
+
 
 
         // Disconnect from database
