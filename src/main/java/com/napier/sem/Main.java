@@ -37,7 +37,7 @@ public class Main
 
         // Demonstration report of all capital cities - delete later
 
-        ArrayList<CapitalCity> capitals = a.capitalsReport();
+        ArrayList<CapitalCity> capitals = a.capitalsReportContinent("Europe");
         CapitalCity.displayCapitals(capitals);
 
 
@@ -130,6 +130,16 @@ public class Main
     {
         // Create and execute SQL statement
         ResultSet rs = CapitalCity.getFullResultSet(con);
+
+        // populate Arraylist with results of SQL statement
+        ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
+        return ccArr;
+    }
+
+    public ArrayList<CapitalCity> capitalsReportContinent(String continent)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CapitalCity.getContinentResultSet(con,continent);
 
         // populate Arraylist with results of SQL statement
         ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);

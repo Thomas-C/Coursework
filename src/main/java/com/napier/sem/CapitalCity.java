@@ -58,6 +58,37 @@ public class CapitalCity
     }
 
     /**
+     * Gets data of all capital cities from a given continent in the database using an SQL statement
+     * @param con A connection to the database
+     * @param continent The continent to get city data from
+     * @return A ResultSet containing capital city data
+     */
+    public static ResultSet getContinentResultSet(Connection con, String continent)
+    {
+        try
+        {
+            // Create and execute SQL statement
+            Statement st = con.createStatement();
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
+                    "FROM city JOIN country ON (city.CountryCode = country.Code) " +
+                    "WHERE city.ID IN (SELECT country.Capital FROM country) " +
+                    "AND country.Continent = \'" + continent + "\' " +
+                    "ORDER BY country.Population DESC, country.Name ASC";
+
+            // Create and return ResultSet object
+            ResultSet rs = st.executeQuery(stInput);
+            return rs;
+        }
+        catch (Exception e)
+        {
+            // Return null in case of error
+            System.out.println(e.toString());
+            System.out.println("Failed to get Capital City details");
+            return null;
+        }
+    }
+
+    /**
      * Makes CapitalCity objects based on data contained within ResultSet object
      * @param rs ResultSet containing capital city data
      * @return ArrayList containing CapitalCity objects
