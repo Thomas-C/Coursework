@@ -41,8 +41,8 @@ public class CapitalCity
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
                     "FROM city JOIN country ON (city.CountryCode = country.Code) " +
-                    "WHERE city.ID IN (SELECT country.Capital FROM country)" +
-                    "ORDER BY country.Population DESC, country.Name ASC";
+                    "WHERE city.ID IN (SELECT country.Capital FROM country) " +
+                    "ORDER BY city.Population DESC, city.Name ASC";
 
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);
@@ -73,7 +73,38 @@ public class CapitalCity
                     "FROM city JOIN country ON (city.CountryCode = country.Code) " +
                     "WHERE city.ID IN (SELECT country.Capital FROM country) " +
                     "AND country.Continent = \'" + continent + "\' " +
-                    "ORDER BY country.Population DESC, country.Name ASC";
+                    "ORDER BY city.Population DESC, city.Name ASC";
+
+            // Create and return ResultSet object
+            ResultSet rs = st.executeQuery(stInput);
+            return rs;
+        }
+        catch (Exception e)
+        {
+            // Return null in case of error
+            System.out.println(e.toString());
+            System.out.println("Failed to get Capital City details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets data of all capital cities from a given region in the database using an SQL statement
+     * @param con A connection to the database
+     * @param region The region to get city data from
+     * @return A ResultSet containing capital city data
+     */
+    public static ResultSet getRegionResultSet(Connection con, String region)
+    {
+        try
+        {
+            // Create and execute SQL statement
+            Statement st = con.createStatement();
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
+                    "FROM city JOIN country ON (city.CountryCode = country.Code) " +
+                    "WHERE city.ID IN (SELECT country.Capital FROM country) " +
+                    "AND country.Region = \'" + region + "\' " +
+                    "ORDER BY city.Population DESC, city.Name ASC";
 
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);

@@ -36,9 +36,10 @@ public class Main
 
 
         // Demonstration report of all capital cities - delete later
-
-        ArrayList<CapitalCity> capitals = a.capitalsReportContinent("Europe");
+        /*
+        ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
         CapitalCity.displayCapitals(capitals);
+        */
 
 
 
@@ -124,7 +125,8 @@ public class Main
     }
 
     /**
-     * Returns ArrayList of CapitalCity Objects
+     * Returns ArrayList of CapitalCity Objects from worldwide data
+     * @return an ArrayList of CapitalCity Objects
      */
     public ArrayList<CapitalCity> capitalsReport()
     {
@@ -136,10 +138,30 @@ public class Main
         return ccArr;
     }
 
+    /**
+     * Returns ArrayList of CapitalCity Objects from given continent
+     * @param continent The continent to get data from
+     * @return as ArrayList of CapitalCity Objects
+     */
     public ArrayList<CapitalCity> capitalsReportContinent(String continent)
     {
         // Create and execute SQL statement
         ResultSet rs = CapitalCity.getContinentResultSet(con,continent);
+
+        // populate Arraylist with results of SQL statement
+        ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
+        return ccArr;
+    }
+
+    /**
+     * Returns ArrayList of CapitalCity Objects from given Region
+     * @param Region The Region to get data from
+     * @return as ArrayList of CapitalCity Objects
+     */
+    public ArrayList<CapitalCity> capitalsReportRegion(String Region)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CapitalCity.getRegionResultSet(con,Region);
 
         // populate Arraylist with results of SQL statement
         ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
