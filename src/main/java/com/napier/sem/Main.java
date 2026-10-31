@@ -36,8 +36,7 @@ public class Main
 
 
         // Demonstration report of all capital cities - delete later
-
-        ArrayList<CapitalCity> capitals = a.capitalsReport();
+        ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
         CapitalCity.displayCapitals(capitals);
 
 

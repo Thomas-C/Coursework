@@ -22,6 +22,9 @@ public class ReportIntegrationTest
         app.connect("localhost:33060", 30000);
     }
 
+    /**
+     * tests integration of country table of database
+     */
     @Test
     void testGetCountries()
     {
@@ -42,6 +45,9 @@ public class ReportIntegrationTest
         assertEquals("Peking", country.capital);
     }
 
+    /**
+     * tests integration of city table of database
+     */
     @Test
     void testGetCapitalCities()
     {
