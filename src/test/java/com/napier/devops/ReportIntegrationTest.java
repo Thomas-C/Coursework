@@ -23,7 +23,7 @@ public class ReportIntegrationTest
     }
 
     /**
-     * tests integration of country table of database
+     * tests full country report
      */
     @Test
     void testGetCountries()
@@ -46,7 +46,7 @@ public class ReportIntegrationTest
     }
 
     /**
-     * tests integration of city table of database
+     * tests full capital city report
      */
     @Test
     void testGetCapitalCities()
@@ -64,6 +64,48 @@ public class ReportIntegrationTest
         assertEquals("Seoul", capital.name);
         assertEquals("South Korea", capital.country);
         assertEquals(9981619, capital.population);
+    }
+
+    /**
+     * tests capital city by continent report
+     */
+    @Test
+    void testGetCapitalCitiesContinent()
+    {
+        // Get CapitalCity data
+        ArrayList<CapitalCity> capitals = app.capitalsReportContinent("Europe");
+
+        // Check that the query returned data
+        assertNotNull(capitals);
+        assertFalse(capitals.isEmpty());
+
+        // Peking, China should be the first capital city in data
+        CapitalCity capital = capitals.get(0);
+        assertEquals(3580, capital.id);
+        assertEquals("Moscow", capital.name);
+        assertEquals("Russian Federation", capital.country);
+        assertEquals(8389200, capital.population);
+    }
+
+    /**
+     * tests capital city by region report
+     */
+    @Test
+    void testGetCapitalCitiesRegion()
+    {
+        // Get CapitalCity data
+        ArrayList<CapitalCity> capitals = app.capitalsReportRegion("Central Africa");
+
+        // Check that the query returned data
+        assertNotNull(capitals);
+        assertFalse(capitals.isEmpty());
+
+        // Kinshasa, DRC should be the first capital city in data
+        CapitalCity capital = capitals.get(0);
+        assertEquals(2298, capital.id);
+        assertEquals("Kinshasa", capital.name);
+        assertEquals("Congo, The Democratic Republic of the", capital.country);
+        assertEquals(5064000, capital.population);
     }
 
     @AfterAll
