@@ -18,10 +18,14 @@ public class ContinentReport
     public long population;
     public String capital;
 
+    public ContinentReport(String userContinent){
+        continent = userContinent;
+    }
+
     /**
      *  Gets all the countries ordered by population, largest first
      */
-    public static ArrayList<ContinentReport> getAllCountries(Connection con)
+    public ArrayList<ContinentReport> getAllCountries(Connection con)
     {
         try
         {
@@ -52,7 +56,7 @@ public class ContinentReport
                     // Read each country returned by the query
                     while (rset.next())
                     {
-                        ContinentReport country = new ContinentReport();
+                        ContinentReport country = new ContinentReport(continent);
 
                         country.code = rset.getString("Code");
                         country.name = rset.getString("Name");
