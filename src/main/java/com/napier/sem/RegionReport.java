@@ -18,14 +18,10 @@ public class RegionReport
     public long population;
     public String capital;
 
-    public RegionReport(String userRegion){
-        region = userRegion;
-    }
-
     /**
      *  Gets all the countries ordered by population, largest first
      */
-    public ArrayList<RegionReport> getAllCountries(Connection con)
+    public static ArrayList<RegionReport> getAllCountries(Connection con)
     {
         try
         {
@@ -56,7 +52,7 @@ public class RegionReport
                     // Read each country returned by the query
                     while (rset.next())
                     {
-                        RegionReport country = new RegionReport(region);
+                        RegionReport country = new RegionReport();
 
                         country.code = rset.getString("Code");
                         country.name = rset.getString("Name");
