@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 public class CountryPopReport
 {
+    /**
+     * SQL Variables
+     */
     public String code;
     public String name;
     public String continent;
@@ -19,9 +22,22 @@ public class CountryPopReport
     public String capital;
 
     /**
+     * Not SQL Variables 😊
+     */
+
+    public String _userContinent;
+    public String _userRegion;
+
+    public CountryPopReport(String userContinent, String userRegion){
+        _userContinent = userContinent;
+        _userRegion = userRegion;
+    }
+
+
+    /**
      *  Gets all the countries ordered by population, largest first
      */
-    public static ArrayList<CountryPopReport> getAllCountries(Connection con)
+    public ArrayList<CountryPopReport> getAllCountries(Connection con)
     {
         try
         {
@@ -33,6 +49,7 @@ public class CountryPopReport
                             "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population," +
                             "city.Name AS CapitalName " +
                             "FROM country LEFT JOIN city ON country.Capital = city.ID " +
+                                    "where country.Region=" + _userRegion + " where country.Continent=" + _userContinent +
                             "ORDER BY country.Population";
 
 
@@ -48,7 +65,7 @@ public class CountryPopReport
                     // Read each country returned by the query
                     while (rset.next())
                     {
-                        CountryPopReport country = new CountryPopReport();
+                        CountryPopReport country = new CountryPopReport(_userContinent, _userRegion);
 
                         country.code = rset.getString("Code");
                         country.name = rset.getString("Name");
