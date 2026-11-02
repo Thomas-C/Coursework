@@ -145,7 +145,7 @@ public class PoppingCities
             while (rs.next())
             {
                 // Creates new CapitalCity object, populates with data, and adds to ArrayList
-                PoppingCities cc = new PoppingCities(_continent, _region, _country, _district);
+                PoppingCities cc = new PoppingCities(_continent, _region, _country, _district, _count);
                 cc.id = rs.getInt("city.ID");
                 cc.name = rs.getString("city.Name");
                 cc.country = rs.getString("country.name");
