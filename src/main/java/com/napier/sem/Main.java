@@ -36,8 +36,11 @@ public class Main
 
 
         // Demonstration report of all capital cities - delete later
-        ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
-        CapitalCity.displayCapitals(capitals);
+        //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
+        //CapitalCity.displayCapitals(capitals);
+
+        ArrayList<CityReport> cities = a.cityReports();
+        CityReport.displayCities(cities);
 
 
         // Disconnect from database
@@ -163,6 +166,16 @@ public class Main
         // populate Arraylist with results of SQL statement
         ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
         return ccArr;
+    }
+
+    public ArrayList<CityReport> cityReports()
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getFullResultSet(con);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
     }
 
 

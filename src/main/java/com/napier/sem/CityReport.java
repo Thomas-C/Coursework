@@ -6,9 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * A class which represents a capital city
+ * A class which represents a city report
  *
- * Contains methods to get capital city data from a database, create ArrayLists of
+ * Contains methods to get city report data from a database, create ArrayLists of
  * CapitalCity objects, and print contents of a CapitalCity ArrayList
  */
 public class CityReport
@@ -17,6 +17,7 @@ public class CityReport
     public int id;
     public String name;
     public String country;
+    public String district;
     public int population;
 
     /**
@@ -25,7 +26,7 @@ public class CityReport
      */
     public String ToString()
     {
-        return ("Name: " + this.name + "  |  Country: " + this.country + "  |  Population: " + Integer.toString(this.population));
+        return ("Name: " + this.name + "  |  Country: " + this.country + "  |  District: " + this.district + "  |  Population: " + Integer.toString(this.population));
     }
 
     /**
@@ -39,9 +40,8 @@ public class CityReport
         {
             // Create and execute SQL statement
             Statement st = con.createStatement();
-            String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
                     "FROM city JOIN country ON (city.CountryCode = country.Code) " +
-                    "WHERE city.ID IN (SELECT country.Capital FROM country) " +
                     "ORDER BY city.Population DESC, city.Name ASC";
 
             // Create and return ResultSet object
@@ -114,31 +114,32 @@ public class CityReport
         {
             // Return null in case of error
             System.out.println(e.toString());
-            System.out.println("Failed to get Capital City details");
+            System.out.println("Failed to get City Report details");
             return null;
         }
     }
 
     /**
-     * Makes CapitalCity objects based on data contained within ResultSet object
-     * @param rs ResultSet containing capital city data
-     * @return ArrayList containing CapitalCity objects
+     * Makes CityReport objects based on data contained within ResultSet object
+     * @param rs ResultSet containing CityReport data
+     * @return ArrayList containing CityReport objects
      */
-    public static ArrayList<CapitalCity> rsToArrLst(ResultSet rs)
+    public static ArrayList<CityReport> rsToArrLst(ResultSet rs)
     {
-        ArrayList<CapitalCity> ccArr = new ArrayList<CapitalCity>();
+        ArrayList<CityReport> ccArr = new ArrayList<CityReport>();
         try
         {
             // Increments for each row of data in ResultSet
             while (rs.next())
             {
-                // Creates new CapitalCity object, populates with data, and adds to ArrayList
-                CapitalCity cc = new CapitalCity();
-                cc.id = rs.getInt("city.ID");
-                cc.name = rs.getString("city.Name");
-                cc.country = rs.getString("country.name");
-                cc.population = rs.getInt("city.Population");
-                ccArr.add(cc);
+                // Creates new CityReport object, populates with data, and adds to ArrayList
+                CityReport cr = new CityReport();
+                cr.id = rs.getInt("city.ID");
+                cr.name = rs.getString("city.Name");
+                cr.country = rs.getString("country.name");
+                cr.district = rs.getString("city.district");
+                cr.population = rs.getInt("city.Population");
+                ccArr.add(cr);
             }
 
         }
@@ -146,7 +147,7 @@ public class CityReport
         {
             // Returns null in case of error
             System.out.println(e.toString());
-            System.out.println("Failed to create Capital City report");
+            System.out.println("Failed to create City report");
             return null;
         }
 
@@ -154,25 +155,25 @@ public class CityReport
     }
 
     /**
-     * Prints details of CapitalCity objects
-     * @param ccArr ArrayList of CapitalCity objects to be printed
+     * Prints details of CityReport objects
+     * @param crArr ArrayList of CityReport objects to be printed
      */
-    public static void displayCapitals(ArrayList<CapitalCity> ccArr)
+    public static void displayCities(ArrayList<CityReport> crArr)
     {
-        if (ccArr == null)
+        if (crArr == null)
         {
-            System.out.println("No capital cities in report");
+            System.out.println("No cities in report");
             return;
         }
-        System.out.println("Printing capital city report:");
+        System.out.println("Printing city report:");
         // Increments for each object in ArrayList
-        for (CapitalCity cc : ccArr)
+        for (CityReport cr : crArr)
         {
-            if (cc == null)
+            if (cr == null)
             {
                 continue;
             }
-            System.out.println(cc.ToString());
+            System.out.println(cr.ToString());
         }
     }
 
