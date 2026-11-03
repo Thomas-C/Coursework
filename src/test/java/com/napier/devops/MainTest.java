@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTest
 {
-    static Main a;
+    static Main app;
 
     @BeforeAll
     static void init()
     {
-        a = new Main();
+        app = new Main();
         Connection con = null;
     }
 

@@ -12,14 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CapitalCityTest
 {
-    static Main a;
+    static Main app;
 
     @BeforeAll
     static void init()
     {
-        a = new Main();
+        app = new Main();
     }
 
+    /**
+     * test that string is properly returned by ToString method
+     */
     @Test
     void toStringTest()
     {
@@ -31,6 +34,9 @@ public class CapitalCityTest
         assertNotNull(cc.ToString());
     }
 
+    /**
+     * test that ToString doesn't crash on null object
+     */
     @Test
     void toStringBlankTest()
     {
@@ -39,20 +45,63 @@ public class CapitalCityTest
     }
 
 
-
-    // needs more testing of connection stuff
+    /**
+     * test that null connection doesn't crash getFullResultSet method
+     */
     @Test
     void fullResultSetNullTest()
     {
         CapitalCity.getFullResultSet(null);
     }
 
+    /**
+     * test that null connection doesn't crash getContinentResultSet method
+     */
+    @Test
+    void continentResultSetNullTest()
+    {
+        CapitalCity.getContinentResultSet(null, "test");
+    }
+
+    /**
+     * test that null connection and null String doesn't crash getContinentResultSet method
+     */
+    @Test
+    void continentResultSetNullStrTest()
+    {
+        CapitalCity.getContinentResultSet(null, null);
+    }
+
+    /**
+     * test that null connection doesn't crash getRegionResultSet method
+     */
+    @Test
+    void regionResultSetNullTest()
+    {
+        CapitalCity.getRegionResultSet(null, "test");
+    }
+
+    /**
+     * test that null connection and null String doesn't crash getRegionResultSet method
+     */
+    @Test
+    void regionResultSetNullStrTest()
+    {
+        CapitalCity.getRegionResultSet(null, null);
+    }
+
+    /**
+     * test that null ArrayList doesn't crash displayCapitals method
+     */
     @Test
     void displayCapitalsNullTest()
     {
         CapitalCity.displayCapitals(null);
     }
 
+    /**
+     * test that empty ArrayList doesn't crash displayCapitals method
+     */
     @Test
     void displayCapitalsEmptyTest()
     {
@@ -60,6 +109,9 @@ public class CapitalCityTest
         CapitalCity.displayCapitals(testArr);
     }
 
+    /**
+     * test that null entry in ArrayList doesn't crash displayCapitals method
+     */
     @Test
     void displayCapitalsNullEntryTest()
     {
@@ -68,6 +120,9 @@ public class CapitalCityTest
         CapitalCity.displayCapitals(testArr);
     }
 
+    /**
+     * test that displayCapitals method works under normal circumstances
+     */
     @Test
     void displayCapitalsTest()
     {
