@@ -19,9 +19,34 @@ public class CountryReport
     public String capital;
 
     /**
-     *  Gets all the countries ordered by population, largest first
+     * Gets all countires worldwide
      */
     public static ArrayList<CountryReport> getAllCountries(Connection con)
+    {
+        return getCountries(con, "");
+    }
+
+    /**
+     * Gets countries in one continent
+     */
+
+    public static ArrayList<CountryReport> getCountriesByContinent(Connection con, String continent)
+    {
+        return getCountries(con, "WHERE country.Continent = '" + continent + "'");
+    }
+
+    /**
+     * Gets countries in one region
+     */
+    public static ArrayList<CountryReport> getCountriesByRegion(Connection con, String region)
+    {
+        return getCountries(con, "WHERE country.Region = '" + region + "' ");
+    }
+
+    /**
+     *  Runs the query and reads countries, with the largest populations first
+     */
+    public static ArrayList<CountryReport> getCountries(Connection con, String filter)
     {
         try
         {
@@ -32,8 +57,8 @@ public class CountryReport
             String strSelect =
                             "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population," +
                             "city.Name AS CapitalName " +
-                            "FROM country LEFT JOIN city ON country.Capital = city.ID " +
-                            "ORDER BY country.Population DESC, country.Name ASC";
+                            "FROM country LEFT JOIN city ON country.Capital = city.ID " + filter +
+                            " ORDER BY country.Population DESC, country.Name ASC";
 
 
             // Close the statement when this block finishes

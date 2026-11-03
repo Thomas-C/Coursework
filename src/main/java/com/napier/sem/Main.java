@@ -28,11 +28,12 @@ public class Main
         {
             throw new IllegalArgumentException("Supply both the database location and connection delay.");
         }
-        // Retrieve and display all countries by population
-        /*
-        ArrayList<CountryReport> countries = a.countriesReport();
+
+        // Demonstration report of certain countries
+
+        ArrayList<CountryReport> countries = a.countriesReportRegion("Central Africa");
         CountryReport.displayCountries(countries);
-        */
+
 
 
         // Demonstration report of all capital cities - delete later
@@ -51,6 +52,11 @@ public class Main
     public ArrayList<CountryReport> countriesReport()
     {
         return CountryReport.getAllCountries(con);
+    }
+
+    public ArrayList<CountryReport> countriesReportRegion(String region)
+    {
+        return CountryReport.getCountriesByRegion(con, region);
     }
     /**
      * Connect to the MySQL database.
