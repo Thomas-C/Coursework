@@ -19,7 +19,7 @@ public class CountryReport
     public String capital;
 
     /**
-     * Gets all countires worldwide
+     * Gets all countries worldwide
      */
     public static ArrayList<CountryReport> getAllCountries(Connection con)
     {
@@ -43,10 +43,14 @@ public class CountryReport
         return getCountries(con, "WHERE country.Region = '" + region + "' ");
     }
 
+    public static ArrayList<CountryReport> getCountries(Connection con, String filter)
+    {
+        return getCountries(con, filter, 0);
+    }
     /**
      *  Runs the query and reads countries, with the largest populations first
      */
-    public static ArrayList<CountryReport> getCountries(Connection con, String filter)
+    public static ArrayList<CountryReport> getCountries(Connection con, String filter, int n)
     {
         try
         {
@@ -59,6 +63,10 @@ public class CountryReport
                             "city.Name AS CapitalName " +
                             "FROM country LEFT JOIN city ON country.Capital = city.ID " + filter +
                             " ORDER BY country.Population DESC, country.Name ASC";
+            if (n > 0)
+            {
+                strSelect += " LIMIT " + n;
+            }
 
 
             // Close the statement when this block finishes
@@ -96,6 +104,21 @@ public class CountryReport
             System.out.println("Failed to get country details");
             return null;
         }
+    }
+
+    public static ArrayList<CountryReport> getTopCountries(Connection con, int n)
+    {
+        return getCountries(con, "", n);
+    }
+
+    public static ArrayList<CountryReport> getTopCountriesByContinent(Connection con, String continent, int n)
+    {
+        return getCountries(con, "WHERE country.Continent = '" + continent + "' ", n);
+    }
+
+    public static ArrayList<CountryReport> getTopCountriesByRegion(Connection con, String region, int n)
+    {
+        return getCountries(con, "WHERE country.Region = '" + region + "' ", n);
     }
     /**
      *  Prints the country report

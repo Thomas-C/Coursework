@@ -29,10 +29,10 @@ public class Main
             throw new IllegalArgumentException("Supply both the database location and connection delay.");
         }
 
-        // Demonstration report of certain countries
-
-        ArrayList<CountryReport> countries = a.countriesReportRegion("Central Africa");
-        CountryReport.displayCountries(countries);
+        // Displays only the three most populated countries in Central Africa
+        System.out.println("Top 3 countries in central Africa:");
+        ArrayList<CountryReport> topCountries = a.topCountriesReportRegion("Central Africa", 3);
+        CountryReport.displayCountries(topCountries);
 
 
 
@@ -57,6 +57,11 @@ public class Main
     public ArrayList<CountryReport> countriesReportRegion(String region)
     {
         return CountryReport.getCountriesByRegion(con, region);
+    }
+
+    public ArrayList<CountryReport> topCountriesReportRegion(String region, int n)
+    {
+        return CountryReport.getTopCountriesByRegion(con, region, n);
     }
     /**
      * Connect to the MySQL database.
@@ -104,9 +109,6 @@ public class Main
             }
         }
     }
-
-
-
 
     /**
      * Disconnect from the MySQL database.
