@@ -59,6 +59,11 @@ public class Main
         return CountryReport.getCountriesByRegion(con, region);
     }
 
+    public ArrayList<CountryReport> countriesReportContinent(String continent)
+    {
+        return CountryReport.getCountriesByContinent(con, continent);
+    }
+
     public ArrayList<CountryReport> topCountriesReportRegion(String region, int n)
     {
         return CountryReport.getTopCountriesByRegion(con, region, n);
