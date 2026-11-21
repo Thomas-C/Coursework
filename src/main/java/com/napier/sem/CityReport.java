@@ -31,38 +31,6 @@ public class CityReport
 
 
     /**
-     * Returns ArrayList of CityReport objects using data from one continent
-     * @param con Connection to the database
-     * @param continent Name of the continent to get data from
-     * @return ArrayList of CityReport objects
-     */
-    public ArrayList<CityReport> continentCities(Connection con, String continent)
-    {
-        // Create and execute SQL statement
-        ResultSet rs = CityReport.getContinentResultSet(con, continent);
-
-        // Populate ArrayList with results of SQL statement
-        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
-        return crArr;
-    }
-
-    /**
-     * Returns ArrayList of CityReport objects using data from one region
-     * @param con Connection to the database
-     * @param region Name of the region to get data from
-     * @return ArrayList of CityReport objects
-     */
-    public ArrayList<CityReport> regionCities(Connection con, String region)
-    {
-        // Create and execute SQL statement
-        ResultSet rs = CityReport.getRegionResultSet(con, region);
-
-        // Populate ArrayList with results of SQL statement
-        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
-        return crArr;
-    }
-
-    /**
      * Gets data of all cities in the database using an SQL statement
      * @param con A connection to the database
      * @return A ResultSet containing city data
