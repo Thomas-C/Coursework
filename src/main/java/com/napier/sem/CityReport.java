@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * A class which represents a city report
  *
  * Contains methods to get city report data from a database, create ArrayLists of
- * CapitalCity objects, and print contents of a CapitalCity ArrayList
+ * CityReport objects, and print contents of a CapitalCity ArrayList
  */
 public class CityReport
 {
@@ -21,18 +21,51 @@ public class CityReport
     public int population;
 
     /**
-     * Returns String representation of CapitalCity object, not including ID
-     * @return String representation of CapitalCity object, not including ID
+     * Returns String representation of CityReport object, not including ID
+     * @return String representation of CityReport object, not including ID
      */
     public String ToString()
     {
         return ("Name: " + this.name + "  |  Country: " + this.country + "  |  District: " + this.district + "  |  Population: " + Integer.toString(this.population));
     }
 
+
     /**
-     * Gets data of all capital cities in the database using an SQL statement
+     * Returns ArrayList of CityReport objects using data from one continent
+     * @param con Connection to the database
+     * @param continent Name of the continent to get data from
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> continentCities(Connection con, String continent)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getContinentResultSet(con, continent);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
+    /**
+     * Returns ArrayList of CityReport objects using data from one region
+     * @param con Connection to the database
+     * @param region Name of the region to get data from
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> regionCities(Connection con, String region)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getRegionResultSet(con, region);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
+    /**
+     * Gets data of all cities in the database using an SQL statement
      * @param con A connection to the database
-     * @return A ResultSet containing capital city data
+     * @return A ResultSet containing city data
      */
     public static ResultSet getFullResultSet(Connection con)
     {
@@ -52,16 +85,16 @@ public class CityReport
         {
             // Return null in case of error
             System.out.println(e.toString());
-            System.out.println("Failed to get Capital City details");
+            System.out.println("Failed to get City details");
             return null;
         }
     }
 
     /**
-     * Gets data of all capital cities from a given continent in the database using an SQL statement
+     * Gets data of all cities from a given continent in the database using an SQL statement
      * @param con A connection to the database
      * @param continent The continent to get city data from
-     * @return A ResultSet containing capital city data
+     * @return A ResultSet containing city data
      */
     public static ResultSet getContinentResultSet(Connection con, String continent)
     {
@@ -69,10 +102,9 @@ public class CityReport
         {
             // Create and execute SQL statement
             Statement st = con.createStatement();
-            String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
                     "FROM city JOIN country ON (city.CountryCode = country.Code) " +
-                    "WHERE city.ID IN (SELECT country.Capital FROM country) " +
-                    "AND country.Continent = \'" + continent + "\' " +
+                    "WHERE country.Continent = \'" + continent + "\' " +
                     "ORDER BY city.Population DESC, city.Name ASC";
 
             // Create and return ResultSet object
@@ -83,16 +115,16 @@ public class CityReport
         {
             // Return null in case of error
             System.out.println(e.toString());
-            System.out.println("Failed to get Capital City details");
+            System.out.println("Failed to get City details");
             return null;
         }
     }
 
     /**
-     * Gets data of all capital cities from a given region in the database using an SQL statement
+     * Gets data of all cities from a given region in the database using an SQL statement
      * @param con A connection to the database
      * @param region The region to get city data from
-     * @return A ResultSet containing capital city data
+     * @return A ResultSet containing city data
      */
     public static ResultSet getRegionResultSet(Connection con, String region)
     {
@@ -100,10 +132,9 @@ public class CityReport
         {
             // Create and execute SQL statement
             Statement st = con.createStatement();
-            String stInput = "SELECT city.ID, city.Name, country.Name, city.Population " +
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
                     "FROM city JOIN country ON (city.CountryCode = country.Code) " +
-                    "WHERE city.ID IN (SELECT country.Capital FROM country) " +
-                    "AND country.Region = \'" + region + "\' " +
+                    "WHERE country.Region = \'" + region + "\' " +
                     "ORDER BY city.Population DESC, city.Name ASC";
 
             // Create and return ResultSet object
@@ -114,14 +145,75 @@ public class CityReport
         {
             // Return null in case of error
             System.out.println(e.toString());
-            System.out.println("Failed to get City Report details");
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets data of all cities from a given country in the database using an SQL statement
+     * @param con A connection to the database
+     * @param country The country to get city data from
+     * @return A ResultSet containing city data
+     */
+    public static ResultSet getCountryResultSet(Connection con, String country)
+    {
+        try
+        {
+            // Create and execute SQL statement
+            Statement st = con.createStatement();
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
+                    "FROM city JOIN country ON (city.CountryCode = country.Code) " +
+                    "WHERE city.CountryCode IN " +
+                    "(SELECT Code FROM country WHERE Name = \'" + country + "\') " +
+                    "ORDER BY city.Population DESC, city.Name ASC";
+
+            // Create and return ResultSet object
+            ResultSet rs = st.executeQuery(stInput);
+            return rs;
+        }
+        catch (Exception e)
+        {
+            // Return null in case of error
+            System.out.println(e.toString());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets data of all cities from a given district in the database using an SQL statement
+     * @param con A connection to the database
+     * @param district The district to get city data from
+     * @return A ResultSet containing city data
+     */
+    public static ResultSet getDistrictResultSet(Connection con, String district)
+    {
+        try
+        {
+            // Create and execute SQL statement
+            Statement st = con.createStatement();
+            String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
+                    "FROM city JOIN country ON (city.CountryCode = country.Code) " +
+                    "WHERE city.District = \'" + district + "\' " +
+                    "ORDER BY city.Population DESC, city.Name ASC";
+
+            // Create and return ResultSet object
+            ResultSet rs = st.executeQuery(stInput);
+            return rs;
+        }
+        catch (Exception e)
+        {
+            // Return null in case of error
+            System.out.println(e.toString());
+            System.out.println("Failed to get City details");
             return null;
         }
     }
 
     /**
      * Makes CityReport objects based on data contained within ResultSet object
-     * @param rs ResultSet containing CityReport data
+     * @param rs ResultSet containing City data
      * @return ArrayList containing CityReport objects
      */
     public static ArrayList<CityReport> rsToArrLst(ResultSet rs)
