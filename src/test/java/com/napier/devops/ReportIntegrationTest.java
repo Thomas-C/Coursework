@@ -2,6 +2,7 @@ package com.napier.devops;
 
 import com.napier.sem.CapitalCity;
 import com.napier.sem.CountryReport;
+import com.napier.sem.LanguagesReport;
 import com.napier.sem.Main;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -106,6 +107,24 @@ public class ReportIntegrationTest
         assertEquals("Kinshasa", capital.name);
         assertEquals("Congo, The Democratic Republic of the", capital.country);
         assertEquals(5064000, capital.population);
+    }
+
+    @Test
+    void testGetLanguages()
+    {
+        ArrayList<LanguagesReport> languages = app.languagesReport();
+
+        // Check that the query returned data
+        assertNotNull(languages);
+        assertEquals(5, languages.size());
+
+        // Chinese should be the first language in data
+        LanguagesReport first = languages.get(0);
+        assertEquals(1191843539L, first.speakers);
+        assertEquals(19.61, first.worldPercentage, 0.01);
+
+        // Arabic SHOULD be last
+        assertEquals("Arabic", languages.get(4).language);
     }
 
     @AfterAll

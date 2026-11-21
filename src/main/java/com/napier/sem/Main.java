@@ -40,6 +40,9 @@ public class Main
         ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
         CapitalCity.displayCapitals(capitals);
 
+        ArrayList<LanguagesReport> languages = a.languagesReport();
+        LanguagesReport.DisplayLanguages(languages);
+
 
         // Disconnect from database
         a.disconnect();
@@ -169,6 +172,11 @@ public class Main
         // populate Arraylist with results of SQL statement
         ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
         return ccArr;
+    }
+
+    public ArrayList<LanguagesReport> languagesReport()
+    {
+        return LanguagesReport.getLanguagesBySpeaker(con);
     }
 
 
