@@ -214,7 +214,7 @@ public class CityReport {
         }
     }
 
-    public static void displayTopCities(ArrayList<CityReport> crArr, int count) {
+    public static void displayTopCities(ArrayList<CityReport> crArr, Integer count) {
 
         int _tempCount;
 
@@ -223,6 +223,11 @@ public class CityReport {
 
         if (crArr == null) {
             System.out.println("No cities in report");
+            return;
+        }
+
+        if (count == null){
+            System.out.println("Count is null");
             return;
         }
 

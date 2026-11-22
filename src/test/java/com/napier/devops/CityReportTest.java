@@ -1,12 +1,10 @@
 package com.napier.devops;
 
-import com.napier.sem.CapitalCity;
 import com.napier.sem.CityReport;
 import com.napier.sem.Main;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -174,6 +172,42 @@ public class CityReportTest {
         assertNotNull(cr.ToString());
         testArr.add(cr);
         CityReport.displayCities(testArr);
+    }
+
+    @Test
+    void displayTopCitiesNullCount()
+    {
+        ArrayList<CityReport> testArr = new ArrayList<CityReport>();
+        CityReport cr = new CityReport();
+        cr.id = 123;
+        cr.name = "test1";
+        cr.country = "test2";
+        cr.district = "test3";
+        cr.population = 100;
+        assertNotNull(cr.ToString());
+        testArr.add(cr);
+        CityReport.displayTopCities(testArr, null);
+    }
+
+    @Test
+    void displayTopCitiesNullArr()
+    {
+        CityReport.displayTopCities(null, 5);
+    }
+
+    @Test
+    void displayTopCities()
+    {
+        ArrayList<CityReport> testArr = new ArrayList<CityReport>();
+        CityReport cr = new CityReport();
+        cr.id = 123;
+        cr.name = "test1";
+        cr.country = "test2";
+        cr.district = "test3";
+        cr.population = 100;
+        assertNotNull(cr.ToString());
+        testArr.add(cr);
+        CityReport.displayTopCities(testArr, 5);
     }
 
 }
