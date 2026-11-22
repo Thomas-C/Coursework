@@ -1,6 +1,7 @@
 package com.napier.devops;
 
 import com.napier.sem.CapitalCity;
+import com.napier.sem.CityReport;
 import com.napier.sem.CountryReport;
 import com.napier.sem.Main;
 import org.junit.jupiter.api.AfterAll;
@@ -106,6 +107,101 @@ public class ReportIntegrationTest
         assertEquals("Kinshasa", capital.name);
         assertEquals("Congo, The Democratic Republic of the", capital.country);
         assertEquals(5064000, capital.population);
+    }
+
+    @Test
+    void testGetCitiesWorldwide()
+    {
+        // Get city data
+        ArrayList<CityReport> cities = app.cityReports();
+
+        // Check that the query returned data
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
+
+        // Check data is as expected
+        CityReport city = cities.get(0);
+        assertEquals(1024, city.id);
+        assertEquals("Mumbai (Bombay)", city.name);
+        assertEquals("India", city.country);
+        assertEquals("Maharashtra", city.district);
+        assertEquals(10500000, city.population);
+    }
+
+    @Test
+    void testGetCitiesContinent()
+    {
+        // Get city data
+        ArrayList<CityReport> cities = app.cityReportsContinent("Europe");
+
+        // Check that the query returned data
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
+
+        // Check data is as expected
+        CityReport city = cities.get(0);
+        assertEquals(3580, city.id);
+        assertEquals("Moscow", city.name);
+        assertEquals("Russian Federation", city.country);
+        assertEquals("Moscow (City)", city.district);
+        assertEquals(8389200, city.population);
+    }
+
+    @Test
+    void testGetCitiesRegion()
+    {
+        // Get city data
+        ArrayList<CityReport> cities = app.cityReportsRegion("Caribbean");
+
+        // Check that the query returned data
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
+
+        // Check data is as expected
+        CityReport city = cities.get(0);
+        assertEquals(2413, city.id);
+        assertEquals("La Habana", city.name);
+        assertEquals("Cuba", city.country);
+        assertEquals("La Habana", city.district);
+        assertEquals(2256000, city.population);
+    }
+
+    @Test
+    void testGetCitiesCountry()
+    {
+        // Get city data
+        ArrayList<CityReport> cities = app.cityReportsCountry("Malaysia");
+
+        // Check that the query returned data
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
+
+        // Check data is as expected
+        CityReport city = cities.get(0);
+        assertEquals(2464, city.id);
+        assertEquals("Kuala Lumpur", city.name);
+        assertEquals("Malaysia", city.country);
+        assertEquals("Wilayah Persekutuan", city.district);
+        assertEquals(1297526, city.population);
+    }
+
+    @Test
+    void testGetCitiesDistrict()
+    {
+        // Get city data
+        ArrayList<CityReport> cities = app.cityReportsDistrict("Buenos Aires");
+
+        // Check that the query returned data
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
+
+        // Check data is as expected
+        CityReport city = cities.get(0);
+        assertEquals(70, city.id);
+        assertEquals("La Matanza", city.name);
+        assertEquals("Argentina", city.country);
+        assertEquals("Buenos Aires", city.district);
+        assertEquals(1266461, city.population);
     }
 
     @AfterAll

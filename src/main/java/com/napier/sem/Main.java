@@ -39,7 +39,7 @@ public class Main
         //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
         //CapitalCity.displayCapitals(capitals);
 
-        ArrayList<CityReport> cities = a.cityReportsDistrict("Buenos Aires");
+        ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
         CityReport.displayCities(cities);
 
 
