@@ -1,0 +1,34 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug", "triage"]
+projects: ["euan-g19/FirstProject"]
+type: bug
+body:
+
+  - type: textarea
+    id: replicate
+    attributes:
+      label: How is this bug replicated?
+      description: Describe the steps that lead to the bug occurring.
+      placeholder:
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What went wrong?
+      description: Describe what happened when the above steps were executed.
+      placeholder:
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What was expected?
+      description: Describe what outcome you were expecting from the steps above.
+      placeholder:
+    validations:
+      required: true
