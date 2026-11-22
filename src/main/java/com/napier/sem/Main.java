@@ -42,6 +42,7 @@ public class Main
 
         ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
         CityReport.displayCities(cities);
+        CityReport.displayTopCities(cities, 5);
 
 
         // Disconnect from database
