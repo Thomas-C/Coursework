@@ -11,8 +11,7 @@ import java.util.ArrayList;
  * Contains methods to get city report data from a database, create ArrayLists of
  * CityReport objects, and print contents of a CapitalCity ArrayList
  */
-public class CityReport
-{
+public class CityReport {
 
     public int id;
     public String name;
@@ -22,23 +21,22 @@ public class CityReport
 
     /**
      * Returns String representation of CityReport object, not including ID
+     *
      * @return String representation of CityReport object, not including ID
      */
-    public String ToString()
-    {
+    public String ToString() {
         return ("Name: " + this.name + "  |  Country: " + this.country + "  |  District: " + this.district + "  |  Population: " + Integer.toString(this.population));
     }
 
 
     /**
      * Gets data of all cities in the database using an SQL statement
+     *
      * @param con A connection to the database
      * @return A ResultSet containing city data
      */
-    public static ResultSet getFullResultSet(Connection con)
-    {
-        try
-        {
+    public static ResultSet getFullResultSet(Connection con) {
+        try {
             // Create and execute SQL statement
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
@@ -48,9 +46,7 @@ public class CityReport
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);
             return rs;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             // Return null in case of error
             System.out.println(e.toString());
             System.out.println("Failed to get City details");
@@ -60,14 +56,13 @@ public class CityReport
 
     /**
      * Gets data of all cities from a given continent in the database using an SQL statement
-     * @param con A connection to the database
+     *
+     * @param con       A connection to the database
      * @param continent The continent to get city data from
      * @return A ResultSet containing city data
      */
-    public static ResultSet getContinentResultSet(Connection con, String continent)
-    {
-        try
-        {
+    public static ResultSet getContinentResultSet(Connection con, String continent) {
+        try {
             // Create and execute SQL statement
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
@@ -78,9 +73,7 @@ public class CityReport
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);
             return rs;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             // Return null in case of error
             System.out.println(e.toString());
             System.out.println("Failed to get City details");
@@ -90,14 +83,13 @@ public class CityReport
 
     /**
      * Gets data of all cities from a given region in the database using an SQL statement
-     * @param con A connection to the database
+     *
+     * @param con    A connection to the database
      * @param region The region to get city data from
      * @return A ResultSet containing city data
      */
-    public static ResultSet getRegionResultSet(Connection con, String region)
-    {
-        try
-        {
+    public static ResultSet getRegionResultSet(Connection con, String region) {
+        try {
             // Create and execute SQL statement
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
@@ -108,9 +100,7 @@ public class CityReport
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);
             return rs;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             // Return null in case of error
             System.out.println(e.toString());
             System.out.println("Failed to get City details");
@@ -120,14 +110,13 @@ public class CityReport
 
     /**
      * Gets data of all cities from a given country in the database using an SQL statement
-     * @param con A connection to the database
+     *
+     * @param con     A connection to the database
      * @param country The country to get city data from
      * @return A ResultSet containing city data
      */
-    public static ResultSet getCountryResultSet(Connection con, String country)
-    {
-        try
-        {
+    public static ResultSet getCountryResultSet(Connection con, String country) {
+        try {
             // Create and execute SQL statement
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
@@ -139,9 +128,7 @@ public class CityReport
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);
             return rs;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             // Return null in case of error
             System.out.println(e.toString());
             System.out.println("Failed to get City details");
@@ -151,14 +138,13 @@ public class CityReport
 
     /**
      * Gets data of all cities from a given district in the database using an SQL statement
-     * @param con A connection to the database
+     *
+     * @param con      A connection to the database
      * @param district The district to get city data from
      * @return A ResultSet containing city data
      */
-    public static ResultSet getDistrictResultSet(Connection con, String district)
-    {
-        try
-        {
+    public static ResultSet getDistrictResultSet(Connection con, String district) {
+        try {
             // Create and execute SQL statement
             Statement st = con.createStatement();
             String stInput = "SELECT city.ID, city.Name, country.Name, city.district, city.Population " +
@@ -169,9 +155,7 @@ public class CityReport
             // Create and return ResultSet object
             ResultSet rs = st.executeQuery(stInput);
             return rs;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             // Return null in case of error
             System.out.println(e.toString());
             System.out.println("Failed to get City details");
@@ -181,17 +165,15 @@ public class CityReport
 
     /**
      * Makes CityReport objects based on data contained within ResultSet object
+     *
      * @param rs ResultSet containing City data
      * @return ArrayList containing CityReport objects
      */
-    public static ArrayList<CityReport> rsToArrLst(ResultSet rs)
-    {
+    public static ArrayList<CityReport> rsToArrLst(ResultSet rs) {
         ArrayList<CityReport> ccArr = new ArrayList<CityReport>();
-        try
-        {
+        try {
             // Increments for each row of data in ResultSet
-            while (rs.next())
-            {
+            while (rs.next()) {
                 // Creates new CityReport object, populates with data, and adds to ArrayList
                 CityReport cr = new CityReport();
                 cr.id = rs.getInt("city.ID");
@@ -202,9 +184,7 @@ public class CityReport
                 ccArr.add(cr);
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             // Returns null in case of error
             System.out.println(e.toString());
             System.out.println("Failed to create City report");
@@ -216,25 +196,48 @@ public class CityReport
 
     /**
      * Prints details of CityReport objects
+     *
      * @param crArr ArrayList of CityReport objects to be printed
      */
-    public static void displayCities(ArrayList<CityReport> crArr)
-    {
-        if (crArr == null)
-        {
+    public static void displayCities(ArrayList<CityReport> crArr) {
+        if (crArr == null) {
             System.out.println("No cities in report");
             return;
         }
         System.out.println("Printing city report:");
         // Increments for each object in ArrayList
-        for (CityReport cr : crArr)
-        {
-            if (cr == null)
-            {
+        for (CityReport cr : crArr) {
+            if (cr == null) {
                 continue;
             }
             System.out.println(cr.ToString());
         }
     }
 
+    public static void displayTopCities(ArrayList<CityReport> crArr, int count) {
+
+        int _tempCount;
+
+        count = 5;
+        _tempCount = count;
+
+        if (crArr == null) {
+            System.out.println("No cities in report");
+            return;
+        }
+
+        System.out.println("Printing the top " + count + " city reports:");
+        // Increments for each object in ArrayList
+        for (CityReport cr : crArr) {
+            if (_tempCount > 0) {
+                if (cr == null) {
+                    continue;
+                }
+
+                System.out.println(cr.ToString());
+                _tempCount -= 1;
+            }
+
+        }
+    }
 }
