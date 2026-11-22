@@ -28,7 +28,7 @@ public class CountryReportTest
 
     }
     /**
-     * Checks that a null entry in the list is handled without crashing
+     * Tests that a null entry in the list is handled without crashing
      */
     @Test
     void displayCountriesNullEntryTest()
@@ -41,7 +41,98 @@ public class CountryReportTest
     }
 
     /**
-     * Checks that a country with all its details can be displayed
+     * Tests that a null connection doesn't crash getAllCountries
+     */
+    @Test
+    void getAllCountriesNullTest()
+    {
+        CountryReport.getAllCountries(null);
+    }
+
+    /**
+     * Tests that a null connection doesn't crash getCountriesByContinent
+     */
+    @Test
+    void getCountriesByContinentNullTest()
+    {
+        CountryReport.getCountriesByContinent(null, "test");
+    }
+
+    /**
+     * Tests that a null connection and null string doesn't crash getCountriesByContinent
+     */
+    @Test
+    void getCountriesByContinentNullStrTest()
+    {
+        CountryReport.getCountriesByContinent(null, null);
+    }
+
+    /**
+     * Tests that a null connection doesn't crash getCountriesByRegion
+     */
+    @Test
+    void getCountriesByRegionNullTest()
+    {
+        CountryReport.getCountriesByRegion(null, "test");
+    }
+
+    /**
+     * Tests that a null connection and null string doesn't crash getCountriesByRegion
+     */
+    @Test
+    void getCountriesByRegionNullStrTest()
+    {
+        CountryReport.getCountriesByRegion(null, null);
+    }
+
+    /**
+     * Tests that a null connection doesn't crash getTopCountries
+     */
+    @Test
+    void getTopCountriesNullTest()
+    {
+        CountryReport.getTopCountries(null, 3);
+    }
+
+    /**
+     * Tests that a null connection doesn't crash getTopCountriesByContinent
+     */
+    @Test
+    void getTopCountriesByContinentNullTest()
+    {
+        CountryReport.getTopCountriesByContinent(null, "test", 3);
+    }
+
+    /**
+     * Tests that a null connection and null string doesn't crash getTopcountriesByContinent
+     */
+    @Test
+    void getTopCountriesByContinentNullStrTest()
+    {
+        CountryReport.getTopCountriesByContinent(null, null, 3);
+    }
+
+    /**
+     * Tests that a null connection doesn't crash getTopCountriesByRegion
+     */
+    @Test
+    void getTopCountriesByRegionNullTest()
+    {
+        CountryReport.getTopCountriesByRegion(null, "test", 3);
+    }
+
+    /**
+     * Tests that a null connection and null string doesn't crash getTopCountriesByRegion
+     */
+    @Test
+    void getTopCountriesByRegionNullStrTest()
+    {
+        CountryReport.getTopCountriesByRegion(null, null, 3);
+    }
+
+
+    /**
+     * Tests that a country with all its details can be displayed
      */
     @Test
     void displayCountriesTest()
