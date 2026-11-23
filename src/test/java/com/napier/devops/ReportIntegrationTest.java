@@ -1,9 +1,6 @@
 package com.napier.devops;
 
-import com.napier.sem.CapitalCity;
-import com.napier.sem.CityReport;
-import com.napier.sem.CountryReport;
-import com.napier.sem.Main;
+import com.napier.sem.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,6 +19,7 @@ public class ReportIntegrationTest
         app = new Main();
         app.connect("localhost:33060", 30000);
     }
+
 
     /**
      * tests full country report
@@ -264,6 +262,138 @@ public class ReportIntegrationTest
         assertEquals("Argentina", city.country);
         assertEquals("Buenos Aires", city.district);
         assertEquals(1266461, city.population);
+    }
+
+    /**
+     * tests population by continent report
+     */
+    @Test
+    void populationReportContinentTest()
+    {
+        ArrayList<PopulationReport> pop = app.populationReportContinent();
+        assertNotNull(pop);
+        assertFalse(pop.isEmpty());
+    }
+
+    /**
+     * tests population by region report
+     */
+    @Test
+    void populationReportRegionTest()
+    {
+        ArrayList<PopulationReport> pop = app.populationReportRegion();
+        assertNotNull(pop);
+        assertFalse(pop.isEmpty());
+    }
+
+    /**
+     * tests population by country report
+     */
+    @Test
+    void populationReportCountryTest()
+    {
+        ArrayList<PopulationReport> pop = app.populationReportCountry();
+        assertNotNull(pop);
+        assertFalse(pop.isEmpty());
+    }
+
+    /**
+     * tests world population report
+     */
+    @Test
+    void worldPopTest()
+    {
+        app.worldPop();
+    }
+
+    /**
+     * tests continent population report
+     */
+    @Test
+    void continentPopTest()
+    {
+        app.continentPop("Europe");
+    }
+
+    /**
+     * tests continent population report with null given
+     */
+    @Test
+    void continentPopNullTest()
+    {
+        app.continentPop(null);
+    }
+
+    /**
+     * tests region population report
+     */
+    @Test
+    void regionPopTest()
+    {
+        app.regionPop("Southern Europe");
+    }
+
+    /**
+     * tests region population report with null given
+     */
+    @Test
+    void regionPopNullTest()
+    {
+        app.regionPop(null);
+    }
+
+    /**
+     * tests country population report
+     */
+    @Test
+    void countryPopTest()
+    {
+        app.countryPop("Italy");
+    }
+
+    /**
+     * tests country population report with null given
+     */
+    @Test
+    void countryPopNullTest()
+    {
+        app.countryPop(null);
+    }
+
+    /**
+     * tests district population report
+     */
+    @Test
+    void districtPopTest()
+    {
+        app.districtPop("Nagano");
+    }
+
+    /**
+     * tests district population report with null given
+     */
+    @Test
+    void districtPopNullTest()
+    {
+        app.districtPop(null);
+    }
+
+    /**
+     * tests city population report
+     */
+    @Test
+    void cityPopTest()
+    {
+        app.cityPop("Edinburgh");
+    }
+
+    /**
+     * tests city population report with null given
+     */
+    @Test
+    void cityPopNullTest()
+    {
+        app.cityPop(null);
     }
 
     @AfterAll

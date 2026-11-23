@@ -181,14 +181,16 @@ public class CapitalCity
      * @param n Number of capital cities wanted
      * @return ArrayList containing at most n CapitalCity objects
      */
-    public static ArrayList<CapitalCity> getTopN(ArrayList<CapitalCity> ccArr, int n)
+    public static ArrayList<CapitalCity> getTopN(ArrayList<CapitalCity> ccArr, Integer n)
     {
-        if (ccArr == null || n <= 0)
+        if (n == null){n = 0;}
+        int x = n;
+        if (ccArr == null || x <= 0)
         {
             System.out.println("No capital cities to return");
             return null;
         }
-        return new ArrayList<>(ccArr.subList(0, Math.min(n, ccArr.size())));
+        return new ArrayList<>(ccArr.subList(0, Math.min(x, ccArr.size())));
     }
 
 }

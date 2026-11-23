@@ -15,24 +15,31 @@ public class Main
         // Create new Application
         Main a = new Main();
 
-        if (args.length == 0)
+        try
         {
-            // Connect to database
-            a.connect("localhost:33060", 30000);
-        }
-        else if (args.length == 2)
+            if (args.length == 0)
+            {
+                // Connect to database
+                a.connect("localhost:33060", 30000);
+            }
+            else if (args.length == 2)
+            {
+                a.connect(args[0], Integer.parseInt(args[1]));
+            }
+            else
+            {
+                throw new IllegalArgumentException("Supply both the database location and connection delay.");
+            }
+        } catch (Exception e)
         {
-            a.connect(args[0], Integer.parseInt(args[1]));
-        }
-        else
-        {
-            throw new IllegalArgumentException("Supply both the database location and connection delay.");
+            System.out.println(e.toString());
         }
 
+
         // Displays only the three most populated countries in Central Africa
-        System.out.println("Top 3 countries in central Africa:");
-        ArrayList<CountryReport> topCountries = a.topCountriesReportRegion("Central Africa", 3);
-        CountryReport.displayCountries(topCountries);
+        //System.out.println("Top 3 countries in central Africa:");
+        //ArrayList<CountryReport> topCountries = a.topCountriesReportRegion("Central Africa", 3);
+        //CountryReport.displayCountries(topCountries);
 
 
 
@@ -40,14 +47,14 @@ public class Main
         //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
         //CapitalCity.displayCapitals(capitals);
 
-        ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
-        CityReport.displayCities(cities);
-        CityReport.displayTopCities(cities, 5);
+        //ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
+        //CityReport.displayCities(cities);
+        //CityReport.displayTopCities(cities, 5);
 
 
-        System.out.println("Top 3 capital cities in Central Africa:");
-        ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
-        CapitalCity.displayCapitals(topCapitals);
+        //System.out.println("Top 3 capital cities in Central Africa:");
+        //ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
+        //CapitalCity.displayCapitals(topCapitals);
 
         // Disconnect from database
         a.disconnect();
@@ -284,5 +291,90 @@ public class Main
         return crArr;
     }
 
+    /**
+     * returns ArrayList containing PopulationReport objects by continent
+     * @return ArrayList containing PopulationReport objects by continent
+     */
+    public ArrayList<PopulationReport> populationReportContinent()
+    {
+        ResultSet rs = PopulationReport.getPopResultSetContinent(con);
+        ArrayList<PopulationReport> prArr = PopulationReport.rsToArrLstContinent(con, rs);
+        return prArr;
+    }
+
+    /**
+     * returns ArrayList containing PopulationReport objects by region
+     * @return ArrayList containing PopulationReport objects by region
+     */
+    public ArrayList<PopulationReport> populationReportRegion()
+    {
+        ResultSet rs = PopulationReport.getPopResultSetRegion(con);
+        ArrayList<PopulationReport> prArr = PopulationReport.rsToArrLstRegion(con, rs);
+        return prArr;
+    }
+
+    /**
+     * returns ArrayList containing PopulationReport objects by region
+     * @return ArrayList containing PopulationReport objects by region
+     */
+    public ArrayList<PopulationReport> populationReportCountry()
+    {
+        ResultSet rs = PopulationReport.getPopResultSetCountry(con);
+        ArrayList<PopulationReport> prArr = PopulationReport.rsToArrLstCountry(con, rs);
+        return prArr;
+    }
+
+    /**
+     * prints worldwide population
+     */
+    public void worldPop()
+    {
+        PopulationReport.worldwidePopulation(con);
+    }
+
+    /**
+     * Prints population of given continent
+     * @param continent name of continent
+     */
+    public void continentPop(String continent)
+    {
+        PopulationReport.continentPopulation(con, continent);
+    }
+
+    /**
+     * Prints population of given region
+     * @param region name of region
+     */
+    public void regionPop(String region)
+    {
+        PopulationReport.regionPopulation(con, region);
+    }
+
+    /**
+     * Prints population of given country
+     * @param country name of country
+     */
+    public void countryPop(String country)
+    {
+        PopulationReport.countryPopulation(con, country);
+    }
+
+    /**
+     * Prints population of given district
+     * @param district name of district
+     */
+    public void districtPop(String district)
+    {
+        PopulationReport.districtPopulation(con, district);
+    }
+
+    /**
+     * Prints population of given city
+     * @param city name of city
+     */
+    public void cityPop(String city)
+    {
+        PopulationReport.cityPopulation(con, city);
+    }
 
 }

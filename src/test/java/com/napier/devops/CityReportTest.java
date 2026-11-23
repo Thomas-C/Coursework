@@ -175,7 +175,7 @@ public class CityReportTest {
     }
 
     @Test
-    void displayTopCitiesNullCount()
+    void displayTopCitiesNullCountTest()
     {
         ArrayList<CityReport> testArr = new ArrayList<CityReport>();
         CityReport cr = new CityReport();
@@ -187,6 +187,46 @@ public class CityReportTest {
         assertNotNull(cr.ToString());
         testArr.add(cr);
         CityReport.displayTopCities(testArr, null);
+    }
+
+    @Test
+    void displayTopCitiesNullEntryTest()
+    {
+        ArrayList<CityReport> testArr = new ArrayList<CityReport>();
+        CityReport cr0 = null;
+        CityReport cr = new CityReport();
+        cr.id = 123;
+        cr.name = "test1";
+        cr.country = "test2";
+        cr.district = "test3";
+        cr.population = 100;
+        assertNotNull(cr.ToString());
+        testArr.add(cr0);
+        testArr.add(cr);
+        CityReport.displayTopCities(testArr, 2);
+    }
+
+    @Test
+    void displayTopCitiesSmallArrayTest()
+    {
+        ArrayList<CityReport> testArr = new ArrayList<CityReport>();
+        CityReport cr = new CityReport();
+        cr.id = 123;
+        cr.name = "test1";
+        cr.country = "test2";
+        cr.district = "test3";
+        cr.population = 100;
+        assertNotNull(cr.ToString());
+        testArr.add(cr);
+        CityReport cr1 = new CityReport();
+        cr1.id = 123;
+        cr1.name = "test1";
+        cr1.country = "test2";
+        cr1.district = "test3";
+        cr1.population = 100;
+        assertNotNull(cr.ToString());
+        testArr.add(cr1);
+        CityReport.displayTopCities(testArr, 1);
     }
 
     @Test
@@ -208,6 +248,12 @@ public class CityReportTest {
         assertNotNull(cr.ToString());
         testArr.add(cr);
         CityReport.displayTopCities(testArr, 5);
+    }
+
+    @Test
+    void rsToArrLstNullTest()
+    {
+        CityReport.rsToArrLst(null);
     }
 
 }

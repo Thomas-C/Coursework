@@ -19,5 +19,25 @@ public class MainTest
         Connection con = null;
     }
 
+    @Test
+    void mainTestArgs()
+    {
+        String[] args = {"localhost:33060", "30000"};
+        Main.main(args);
+    }
+
+    @Test
+    void mainTestNoArgs()
+    {
+        String[] args = {};
+        Main.main(args);
+    }
+
+    @Test
+    void mainTestNullArgs()
+    {
+        String[] args = {null, null};
+        Main.main(args);
+    }
 
 }
