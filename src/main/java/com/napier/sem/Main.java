@@ -211,7 +211,7 @@ public class Main
     {
         return CapitalCity.getTopN(capitalsReportRegion(region), n);
     }
-     * Returns ArrayList of CityReport objects using worldwide data
+     /** Returns ArrayList of CityReport objects using worldwide data
      * @return ArrayList of CityReport objects
      */
     public ArrayList<CityReport> cityReports()
