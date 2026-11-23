@@ -36,25 +36,28 @@ public class Main
         }
 
 
-        // Displays only the three most populated countries in Central Africa
-        //System.out.println("Top 3 countries in central Africa:");
+        // Displays only the three most populated countries in a given Region
         //ArrayList<CountryReport> topCountries = a.topCountriesReportRegion("Central Africa", 3);
         //CountryReport.displayCountries(topCountries);
 
-
-
-        // Demonstration report of all capital cities - delete later
-        //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
+        // Demonstration report of all capital cities in a given Continent
+        //ArrayList<CapitalCity> capitals = a.capitalsReportContinent("Europe");
         //CapitalCity.displayCapitals(capitals);
 
-        //ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
-        //CityReport.displayCities(cities);
-        //CityReport.displayTopCities(cities, 5);
-
-
-        //System.out.println("Top 3 capital cities in Central Africa:");
+        // Displays only the top three most populated capital cities in a given Region
         //ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
         //CapitalCity.displayCapitals(topCapitals);
+
+        // Demonstration report of all cities in a given Country
+        //ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
+        //CityReport.displayCities(cities);
+
+        // Displays a Report on the populations of countries and the percentage that live in cities
+        //ArrayList<PopulationReport> popReport = a.populationReportCountry();
+        //PopulationReport.displayPopulationReport(popReport);
+
+        // Displays the population of a given district
+        //a.districtPop("Nagano");
 
         // Disconnect from database
         a.disconnect();
