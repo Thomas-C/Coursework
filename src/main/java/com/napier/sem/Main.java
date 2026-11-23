@@ -37,8 +37,12 @@ public class Main
 
 
         // Demonstration report of all capital cities - delete later
-        ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
-        CapitalCity.displayCapitals(capitals);
+        //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
+        //CapitalCity.displayCapitals(capitals);
+
+        ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
+        CityReport.displayCities(cities);
+        CityReport.displayTopCities(cities, 5);
 
 
         System.out.println("Top 3 capital cities in Central Africa:");
@@ -61,6 +65,11 @@ public class Main
     public ArrayList<CountryReport> countriesReportRegion(String region)
     {
         return CountryReport.getCountriesByRegion(con, region);
+    }
+
+    public ArrayList<CountryReport> countriesReportContinent(String continent)
+    {
+        return CountryReport.getCountriesByContinent(con, continent);
     }
 
     public ArrayList<CountryReport> topCountriesReportRegion(String region, int n)
@@ -133,6 +142,8 @@ public class Main
         }
     }
 
+
+
     /**
      * Returns ArrayList of CapitalCity Objects from worldwide data
      * @return an ArrayList of CapitalCity Objects
@@ -176,6 +187,7 @@ public class Main
         ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
         return ccArr;
     }
+  
     /**
      * Returns the top n most populated capital cities worldwide
      */
@@ -199,5 +211,78 @@ public class Main
     {
         return CapitalCity.getTopN(capitalsReportRegion(region), n);
     }
+     * Returns ArrayList of CityReport objects using worldwide data
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> cityReports()
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getFullResultSet(con);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
+    /**
+     * Returns ArrayList of CityReport objects using data from one continent
+     * @param continent Name of continent to get data from
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> cityReportsContinent(String continent)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getContinentResultSet(con, continent);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
+    /**
+     * Returns ArrayList of CityReport objects using data from one region
+     * @param region Name of region to get data from
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> cityReportsRegion(String region)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getRegionResultSet(con, region);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
+    /**
+     * Returns ArrayList of CityReport objects using data from one country
+     * @param country Name of country to get data from
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> cityReportsCountry(String country)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getCountryResultSet(con, country);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
+    /**
+     * Returns ArrayList of CityReport objects using data from one district
+     * @param district Name of district to get data from
+     * @return ArrayList of CityReport objects
+     */
+    public ArrayList<CityReport> cityReportsDistrict(String district)
+    {
+        // Create and execute SQL statement
+        ResultSet rs = CityReport.getDistrictResultSet(con, district);
+
+        // Populate ArrayList with results of SQL statement
+        ArrayList<CityReport> crArr = CityReport.rsToArrLst(rs);
+        return crArr;
+    }
+
 
 }
