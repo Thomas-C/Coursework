@@ -44,12 +44,19 @@ public class Main
         //CityReport.displayCities(cities);
         //CityReport.displayTopCities(cities, 5);
 
-        ArrayList<PopulationReport> pop = a.populationReportContinent();
-        PopulationReport.displayPopulationReport(pop);
+        //ArrayList<PopulationReport> pop = a.populationReportCountry();
+        //PopulationReport.displayPopulationReport(pop);
 
-        System.out.println("Top 3 capital cities in Central Africa:");
-        ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
-        CapitalCity.displayCapitals(topCapitals);
+        //a.worldPop();
+        //a.continentPop("Europe");
+        //a.regionPop("Caribbean");
+        //a.countryPop("Turkey");
+        //a.districtPop("Nagano");
+        //a.cityPop("Edinburgh");
+
+        //System.out.println("Top 3 capital cities in Central Africa:");
+        //ArrayList<CapitalCity> topCapitals = a.topCapitalsReport(5);
+        //CapitalCity.displayCapitals(topCapitals);
 
         // Disconnect from database
         a.disconnect();
