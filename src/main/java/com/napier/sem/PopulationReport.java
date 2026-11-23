@@ -5,75 +5,62 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Retrieves and displays total population reports.
- */
+// Stores population data and retrieves population totals from the database.
 public class PopulationReport
 {
     private String name;
     private long population;
 
+    // Creates a report with an area name and its population.
     public PopulationReport(String name, long population)
     {
         this.name = name;
         this.population = population;
     }
 
-    /**
-     * Gets the total population of the world.
-     */
+    // Gets the total population of all countries.
     public static PopulationReport getWorldPopulation(Connection con)
     {
-        String sql =
-                "SELECT SUM(Population) AS TotalPopulation FROM country";
+        // Stop if no database connection has been provided.
+        if (con == null)
+        {
+            System.out.println("No database connection.");
+            return null;
+        }
 
-        return getReport(con, sql, null, "World");
+        String sql = "SELECT SUM(Population) AS TotalPopulation FROM country";
+
+        // Automatically close the statement after use.
+        try (PreparedStatement statement = con.prepareStatement(sql))
+        {
+            // Run the query and automatically close its results after use.
+            try (ResultSet results = statement.executeQuery())
+            {
+                if (results.next() && !results.wasNull())
+                {
+                    long total = results.getLong("TotalPopulation");
+
+                    // Only create a report if the total is not SQL NULL.
+                    if (!results.wasNull())
+                    {
+                        return new PopulationReport("World", total);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            // Print any database error.
+            System.out.println(e.getMessage());
+        }
+
+        // No report could be created.
+        return null;
     }
 
-    /**
-     * Gets the total population of a continent.
-     */
+    // Gets the total population of countries in the given continent.
     public static PopulationReport getContinentPopulation(
             Connection con, String continent)
-    {
-        String sql =
-                "SELECT SUM(Population) AS TotalPopulation " +
-                        "FROM country WHERE Continent = ?";
-
-        return getReport(con, sql, continent, continent);
-    }
-
-    /**
-     * Gets the total population of a region.
-     */
-    public static PopulationReport getRegionPopulation(
-            Connection con, String region)
-    {
-        String sql =
-                "SELECT SUM(Population) AS TotalPopulation " +
-                        "FROM country WHERE Region = ?";
-
-        return getReport(con, sql, region, region);
-    }
-
-    /**
-     * Gets the population of a country.
-     */
-    public static PopulationReport getCountryPopulation(
-            Connection con, String country)
-    {
-        String sql =
-                "SELECT SUM(Population) AS TotalPopulation " +
-                        "FROM country WHERE Name = ?";
-
-        return getReport(con, sql, country, country);
-    }
-
-    /**
-     * Runs a population query and creates a report from the result.
-     */
-    private static PopulationReport getReport(
-            Connection con, String sql, String filter, String name)
     {
         if (con == null)
         {
@@ -81,53 +68,128 @@ public class PopulationReport
             return null;
         }
 
-        // Close the statement automatically after the query finishes.
+        String sql = "SELECT SUM(Population) AS TotalPopulation "
+                + "FROM country WHERE Continent = ?";
+
         try (PreparedStatement statement = con.prepareStatement(sql))
         {
-            // Filtered queries have a placeholder for the user's input.
-            if (filter != null)
-            {
-                statement.setString(1, filter);
-            }
+            // Replace the query's placeholder with the continent name.
+            statement.setString(1, continent);
 
             try (ResultSet results = statement.executeQuery())
             {
+                // Move to the row containing the population total.
                 if (results.next())
                 {
-                    long population = results.getLong("TotalPopulation");
+                    long total = results.getLong("TotalPopulation");
 
-                    // A null total means no matching population was found.
-                    if (results.wasNull())
+                    // Return a report only if the query produced a non-null total.
+                    if (!results.wasNull())
                     {
-                        return null;
+                        return new PopulationReport(continent, total);
                     }
-
-                    return new PopulationReport(name, population);
                 }
             }
         }
         catch (SQLException e)
         {
-            System.out.println("Could not retrieve population report.");
             System.out.println(e.getMessage());
         }
 
         return null;
     }
 
-    /**
-     * Displays the report in the console.
-     */
+    // Gets the total population of countries in the given region.
+    public static PopulationReport getRegionPopulation(
+            Connection con, String region)
+    {
+        if (con == null)
+        {
+            System.out.println("No database connection.");
+            return null;
+        }
+
+        String sql = "SELECT SUM(Population) AS TotalPopulation "
+                + "FROM country WHERE Region = ?";
+
+        try (PreparedStatement statement = con.prepareStatement(sql))
+        {
+            // Replace the query's placeholder with the region name.
+            statement.setString(1, region);
+
+            try (ResultSet results = statement.executeQuery())
+            {
+                if (results.next())
+                {
+                    long total = results.getLong("TotalPopulation");
+
+                    // Check that the total is not SQL NULL before using it.
+                    if (!results.wasNull())
+                    {
+                        return new PopulationReport(region, total);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    // Gets the population for the given country name.
+    public static PopulationReport getCountryPopulation(
+            Connection con, String country)
+    {
+        if (con == null)
+        {
+            System.out.println("No database connection.");
+            return null;
+        }
+
+        String sql = "SELECT SUM(Population) AS TotalPopulation "
+                + "FROM country WHERE Name = ?";
+
+        try (PreparedStatement statement = con.prepareStatement(sql))
+        {
+            // Replace the query's placeholder with the country name.
+            statement.setString(1, country);
+
+            try (ResultSet results = statement.executeQuery())
+            {
+                if (results.next())
+                {
+                    long total = results.getLong("TotalPopulation");
+
+                    // Create a report if a non-null population was returned.
+                    if (!results.wasNull())
+                    {
+                        return new PopulationReport(country, total);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    // Prints the report's area name and population.
     public static void displayPopulation(PopulationReport report)
     {
+        // Avoid accessing a report that does not exist.
         if (report == null)
         {
             System.out.println("No population report available.");
             return;
         }
 
-        System.out.printf("%-30s %20s%n", "Area", "Population");
-        System.out.printf("%-30s %,20d%n",
-                report.name, report.population);
+        System.out.println("Area: " + report.name);
+        System.out.println("Population: " + report.population);
     }
 }
