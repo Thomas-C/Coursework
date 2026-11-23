@@ -41,6 +41,10 @@ public class Main
         CapitalCity.displayCapitals(capitals);
 
 
+        System.out.println("Top 3 capital cities in Central Africa:");
+        ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
+        CapitalCity.displayCapitals(topCapitals);
+
         // Disconnect from database
         a.disconnect();
     }
@@ -172,6 +176,28 @@ public class Main
         ArrayList<CapitalCity> ccArr = CapitalCity.rsToArrLst(rs);
         return ccArr;
     }
+    /**
+     * Returns the top n most populated capital cities worldwide
+     */
+    public ArrayList<CapitalCity> topCapitalsReport(int n)
+    {
+        return CapitalCity.getTopN(capitalsReport(), n);
+    }
 
+    /**
+     * Returns the top n most populated capital cities in a continent
+     */
+    public ArrayList<CapitalCity> topCapitalsReportContinent(String continent, int n)
+    {
+        return CapitalCity.getTopN(capitalsReportContinent(continent), n);
+    }
+
+    /**
+     * Returns the top n most populated capital cities in a region
+     */
+    public ArrayList<CapitalCity> topCapitalsReportRegion(String region, int n)
+    {
+        return CapitalCity.getTopN(capitalsReportRegion(region), n);
+    }
 
 }
