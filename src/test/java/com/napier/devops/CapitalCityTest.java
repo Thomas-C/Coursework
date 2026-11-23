@@ -136,4 +136,55 @@ public class CapitalCityTest
         testArr.add(cc);
         CapitalCity.displayCapitals(testArr);
     }
+
+    @Test
+    void rsToArrLstNullTest()
+    {
+        CapitalCity.rsToArrLst(null);
+    }
+
+    @Test
+    void getTopNTestNull()
+    {
+        ArrayList<CapitalCity> testArr = CapitalCity.getTopN(null, null);
+    }
+
+    @Test
+    void getTopNTestNullArrayList()
+    {
+        ArrayList<CapitalCity> testArr = CapitalCity.getTopN(null, 1);
+    }
+
+    @Test
+    void getTopNTest()
+    {
+        ArrayList<CapitalCity> testArr = new ArrayList<CapitalCity>();
+        CapitalCity cc1 = new CapitalCity();
+        cc1.id = 123;
+        cc1.name = "test1";
+        cc1.country = "test2";
+        cc1.population = 100;
+        CapitalCity cc2 = new CapitalCity();
+        cc2.id = 123;
+        cc2.name = "test1";
+        cc2.country = "test2";
+        cc2.population = 100;
+        testArr.add(cc1);
+        testArr.add(cc2);
+        ArrayList<CapitalCity> shortArr = CapitalCity.getTopN(testArr, 1);
+    }
+
+    @Test
+    void getTopNTestSmallArrayListTest()
+    {
+        ArrayList<CapitalCity> testArr = new ArrayList<CapitalCity>();
+        CapitalCity cc1 = new CapitalCity();
+        cc1.id = 123;
+        cc1.name = "test1";
+        cc1.country = "test2";
+        cc1.population = 100;
+        testArr.add(cc1);
+        ArrayList<CapitalCity> shortArr = CapitalCity.getTopN(testArr, 0);
+    }
+
 }

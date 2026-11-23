@@ -19,5 +19,11 @@ public class MainTest
         Connection con = null;
     }
 
+    @Test
+    void mainTestNullArgs()
+    {
+        String[] args = {null, null};
+        Main.main(args);
+    }
 
 }

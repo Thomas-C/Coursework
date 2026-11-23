@@ -217,8 +217,10 @@ public class CityReport {
     public static void displayTopCities(ArrayList<CityReport> crArr, Integer count) {
 
         int _tempCount;
-
-        count = 5;
+        if (count == null)
+        {
+            count = 0;
+        }
         _tempCount = count;
 
         if (crArr == null) {
@@ -226,8 +228,9 @@ public class CityReport {
             return;
         }
 
-        if (count == null){
-            System.out.println("Count is null");
+        if (count == 0)
+        {
+            System.out.println("Cannot print zero cities");
             return;
         }
 

@@ -15,19 +15,26 @@ public class Main
         // Create new Application
         Main a = new Main();
 
-        if (args.length == 0)
+        try
         {
-            // Connect to database
-            a.connect("localhost:33060", 30000);
-        }
-        else if (args.length == 2)
+            if (args.length == 0)
+            {
+                // Connect to database
+                a.connect("localhost:33060", 30000);
+            }
+            else if (args.length == 2)
+            {
+                a.connect(args[0], Integer.parseInt(args[1]));
+            }
+            else
+            {
+                throw new IllegalArgumentException("Supply both the database location and connection delay.");
+            }
+        } catch (Exception e)
         {
-            a.connect(args[0], Integer.parseInt(args[1]));
+            System.out.println(e.toString());
         }
-        else
-        {
-            throw new IllegalArgumentException("Supply both the database location and connection delay.");
-        }
+
 
         // Displays only the three most populated countries in Central Africa
         //System.out.println("Top 3 countries in central Africa:");
@@ -44,18 +51,9 @@ public class Main
         //CityReport.displayCities(cities);
         //CityReport.displayTopCities(cities, 5);
 
-        //ArrayList<PopulationReport> pop = a.populationReportCountry();
-        //PopulationReport.displayPopulationReport(pop);
-
-        //a.worldPop();
-        //a.continentPop("Europe");
-        //a.regionPop("Caribbean");
-        //a.countryPop("Turkey");
-        //a.districtPop("Nagano");
-        //a.cityPop("Edinburgh");
 
         //System.out.println("Top 3 capital cities in Central Africa:");
-        //ArrayList<CapitalCity> topCapitals = a.topCapitalsReport(5);
+        //ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
         //CapitalCity.displayCapitals(topCapitals);
 
         // Disconnect from database
@@ -378,6 +376,5 @@ public class Main
     {
         PopulationReport.cityPopulation(con, city);
     }
-
 
 }

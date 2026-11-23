@@ -173,4 +173,88 @@ public class PopulationReportTest
         PopulationReport.displayPopulationReport(testArr);
     }
 
+    @Test
+    void worldwidePopulationNullTest()
+    {
+        PopulationReport.worldwidePopulation(null);
+    }
+
+    @Test
+    void continentPopulationNullTest()
+    {
+        PopulationReport.continentPopulation(null, "test");
+    }
+
+    @Test
+    void continentPopulationNullStringTest()
+    {
+        PopulationReport.continentPopulation(null, null);
+    }
+
+    @Test
+    void regionPopulationNullTest()
+    {
+        PopulationReport.regionPopulation(null, "test");
+    }
+
+    @Test
+    void regionPopulationNullStringTest()
+    {
+        PopulationReport.continentPopulation(null, null);
+    }
+
+    @Test
+    void countryPopulationNullTest()
+    {
+        PopulationReport.countryPopulation(null, "test");
+    }
+
+    @Test
+    void countryPopulationNullStringTest()
+    {
+        PopulationReport.countryPopulation(null, null);
+    }
+
+    @Test
+    void districtPopulationNullTest()
+    {
+        PopulationReport.districtPopulation(null, "test");
+    }
+
+    @Test
+    void districtPopulationNullStringTest()
+    {
+        PopulationReport.districtPopulation(null, null);
+    }
+
+    @Test
+    void cityPopulationNullTest()
+    {
+        PopulationReport.cityPopulation(null, "test");
+    }
+
+    @Test
+    void cityPopulationNullStringTest()
+    {
+        PopulationReport.cityPopulation(null, null);
+    }
+
+    @Test
+    void rsToArrLstContinentNullTest()
+    {
+        PopulationReport.rsToArrLstContinent(null, null);
+    }
+
+    @Test
+    void rsToArrLstRegionNullTest()
+    {
+        PopulationReport.rsToArrLstRegion(null, null);
+    }
+
+    @Test
+    void rsToArrLstCountryNullTest()
+    {
+        PopulationReport.rsToArrLstCountry(null, null);
+    }
+
 }
