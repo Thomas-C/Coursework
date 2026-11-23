@@ -42,6 +42,7 @@ public class Main
 
         ArrayList<CityReport> cities = a.cityReportsCountry("Malaysia");
         CityReport.displayCities(cities);
+        CityReport.displayTopCities(cities, 5);
 
 
         // Disconnect from database
@@ -60,6 +61,11 @@ public class Main
     public ArrayList<CountryReport> countriesReportRegion(String region)
     {
         return CountryReport.getCountriesByRegion(con, region);
+    }
+
+    public ArrayList<CountryReport> countriesReportContinent(String continent)
+    {
+        return CountryReport.getCountriesByContinent(con, continent);
     }
 
     public ArrayList<CountryReport> topCountriesReportRegion(String region, int n)
