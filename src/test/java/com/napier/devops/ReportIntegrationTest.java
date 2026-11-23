@@ -396,6 +396,24 @@ public class ReportIntegrationTest
         app.cityPop(null);
     }
 
+    @Test
+    void testGetLanguages()
+    {
+        ArrayList<LanguagesReport> languages = app.languagesReport();
+
+        // Check that the query returned data
+        assertNotNull(languages);
+        assertEquals(5, languages.size());
+
+        // Chinese should be the first language in data
+        LanguagesReport first = languages.get(0);
+        assertEquals(1191843539L, first.speakers);
+        assertEquals(19.61, first.worldPercentage, 0.01);
+
+        // Arabic SHOULD be last
+        assertEquals("Arabic", languages.get(4).language);
+    }
+
     @AfterAll
     static void finish()
     {

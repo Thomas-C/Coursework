@@ -59,6 +59,10 @@ public class Main
         // Displays the population of a given district
         //a.districtPop("Nagano");
 
+        // Displays Report on common languages
+        //ArrayList<LanguagesReport> languages = a.languagesReport();
+        //LanguagesReport.DisplayLanguages(languages);
+
         // Disconnect from database
         a.disconnect();
     }
