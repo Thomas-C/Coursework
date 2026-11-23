@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Run unit tests
-        run:  mvn "-Dtest=CapitalCityTest,CountryReportTest" test
+        run:  mvn "-Dtest=CapitalCityTest,CityReportTest,CountryReportTest,MainTest,PopulationReportTest" test
 
   IntegrationTests:
     name: Integration Tests
