@@ -36,9 +36,18 @@ public class Main
 
 
         // Demonstration report of all capital cities - delete later
-        ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
-        CapitalCity.displayCapitals(capitals);
+        //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
+        //CapitalCity.displayCapitals(capitals);
 
+        //ArrayList<PopulationReport> capPop = a.populationReportCountry();
+        //PopulationReport.displayPopulationReport(capPop);
+
+        //a.worldPop();
+        //a.continentPop("Europe");
+        //a.regionPop("Southern Europe");
+        //a.countryPop("Italy");
+        //a.districtPop("Nagano");
+        //a.cityPop("Edinburgh");
 
         // Disconnect from database
         a.disconnect();
@@ -47,11 +56,11 @@ public class Main
     /**
      * Returns all countries ordered by population
      */
-
     public ArrayList<CountryReport> countriesReport()
     {
         return CountryReport.getAllCountries(con);
     }
+
     /**
      * Connect to the MySQL database.
      */
@@ -165,5 +174,91 @@ public class Main
         return ccArr;
     }
 
+
+    /**
+     * returns ArrayList containing PopulationReport objects by continent
+     * @return ArrayList containing PopulationReport objects by continent
+     */
+    public ArrayList<PopulationReport> populationReportContinent()
+    {
+        ResultSet rs = PopulationReport.getPopResultSetContinent(con);
+        ArrayList<PopulationReport> prArr = PopulationReport.rsToArrLstContinent(con, rs);
+        return prArr;
+    }
+
+    /**
+     * returns ArrayList containing PopulationReport objects by region
+     * @return ArrayList containing PopulationReport objects by region
+     */
+    public ArrayList<PopulationReport> populationReportRegion()
+    {
+        ResultSet rs = PopulationReport.getPopResultSetRegion(con);
+        ArrayList<PopulationReport> prArr = PopulationReport.rsToArrLstRegion(con, rs);
+        return prArr;
+    }
+
+    /**
+     * returns ArrayList containing PopulationReport objects by region
+     * @return ArrayList containing PopulationReport objects by region
+     */
+    public ArrayList<PopulationReport> populationReportCountry()
+    {
+        ResultSet rs = PopulationReport.getPopResultSetCountry(con);
+        ArrayList<PopulationReport> prArr = PopulationReport.rsToArrLstCountry(con, rs);
+        return prArr;
+    }
+
+    /**
+     * prints worldwide population
+     */
+    public void worldPop()
+    {
+        PopulationReport.worldwidePopulation(con);
+    }
+
+    /**
+     * Prints population of given continent
+     * @param continent name of continent
+     */
+    public void continentPop(String continent)
+    {
+        PopulationReport.continentPopulation(con, continent);
+    }
+
+    /**
+     * Prints population of given region
+     * @param region name of region
+     */
+    public void regionPop(String region)
+    {
+        PopulationReport.regionPopulation(con, region);
+    }
+
+    /**
+     * Prints population of given country
+     * @param country name of country
+     */
+    public void countryPop(String country)
+    {
+        PopulationReport.countryPopulation(con, country);
+    }
+
+    /**
+     * Prints population of given district
+     * @param district name of district
+     */
+    public void districtPop(String district)
+    {
+        PopulationReport.districtPopulation(con, district);
+    }
+
+    /**
+     * Prints population of given city
+     * @param city name of city
+     */
+    public void cityPop(String city)
+    {
+        PopulationReport.cityPopulation(con, city);
+    }
 
 }
