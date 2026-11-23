@@ -380,4 +380,13 @@ public class Main
         PopulationReport.cityPopulation(con, city);
     }
 
+    /**
+     * Returns ArrayList of language data
+     * @return ArrayList of language data
+     */
+    public ArrayList<LanguagesReport> languagesReport()
+    {
+        return LanguagesReport.getLanguagesBySpeaker(con);
+    }
+
 }
