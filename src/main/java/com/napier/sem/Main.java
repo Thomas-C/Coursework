@@ -39,8 +39,8 @@ public class Main
         //ArrayList<CapitalCity> capitals = a.capitalsReportRegion("Central Africa");
         //CapitalCity.displayCapitals(capitals);
 
-        //ArrayList<PopulationReport> capPop = a.populationReportCountry();
-        //PopulationReport.displayPopulationReport(capPop);
+        ArrayList<PopulationReport> capPop = a.populationReportContinent();
+        PopulationReport.displayPopulationReport(capPop);
 
         //a.worldPop();
         //a.continentPop("Europe");
