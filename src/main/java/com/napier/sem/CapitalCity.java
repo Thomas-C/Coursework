@@ -175,5 +175,20 @@ public class CapitalCity
             System.out.println(cc.ToString());
         }
     }
+    /**
+     * Gets the first n capital cities from an ordered ArrayList
+     * @param ccArr ArrayList of CapitalCity objects, ordered by population
+     * @param n Number of capital cities wanted
+     * @return ArrayList containing at most n CapitalCity objects
+     */
+    public static ArrayList<CapitalCity> getTopN(ArrayList<CapitalCity> ccArr, int n)
+    {
+        if (ccArr == null || n <= 0)
+        {
+            System.out.println("No capital cities to return");
+            return null;
+        }
+        return new ArrayList<>(ccArr.subList(0, Math.min(n, ccArr.size())));
+    }
 
 }
