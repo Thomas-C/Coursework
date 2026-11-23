@@ -56,6 +56,9 @@ public class Main
         //ArrayList<CapitalCity> topCapitals = a.topCapitalsReportRegion("Central Africa", 3);
         //CapitalCity.displayCapitals(topCapitals);
 
+        //ArrayList<LanguagesReport> languages = a.languagesReport();
+        //LanguagesReport.DisplayLanguages(languages);
+
         // Disconnect from database
         a.disconnect();
     }
@@ -375,6 +378,15 @@ public class Main
     public void cityPop(String city)
     {
         PopulationReport.cityPopulation(con, city);
+    }
+
+    /**
+     * Returns ArrayList of language data
+     * @return ArrayList of language data
+     */
+    public ArrayList<LanguagesReport> languagesReport()
+    {
+        return LanguagesReport.getLanguagesBySpeaker(con);
     }
 
 }
