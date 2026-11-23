@@ -218,7 +218,6 @@ public class CityReport {
 
         int _tempCount;
 
-        count = 5;
         _tempCount = count;
 
         if (crArr == null) {
